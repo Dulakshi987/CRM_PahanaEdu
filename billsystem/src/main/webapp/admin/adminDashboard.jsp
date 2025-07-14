@@ -464,7 +464,7 @@
             <i class="fas fa-users"></i>
             Add Customer
         </a>
-        <a href="#">
+        <a href="viewCustomer.jsp">
             <i class="fas fa-users"></i>
             Customer Details
         </a>
