@@ -14,7 +14,8 @@ import java.io.IOException;
 
 @WebServlet("/CustomerServlet")
 public class CustomerServlet extends HttpServlet {
-    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+    protected void doPost(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
         Customer customer = new Customer();
         customer.setAccountNumber(request.getParameter("accountNumber"));
         customer.setFirstName(request.getParameter("firstName"));
@@ -31,7 +32,3 @@ public class CustomerServlet extends HttpServlet {
         response.sendRedirect("addCustomer.jsp?success=true");
     }
 }
-
-
-
-

@@ -1,19 +1,18 @@
 <%@ page contentType="text/html;charset=UTF-8" %>
 <%@ page import="com.billsystem.models.User" %>
 
-<%
-    User user = (User) session.getAttribute("user");
-    if (user == null || user.getUsertype() != 0) {
-        response.sendRedirect("login.jsp");
-        return;
-    }
-%>
+<%--<%--%>
+<%--    User user = (User) session.getAttribute("user");--%>
+<%--    if (user == null || user.getUsertype() != 0) {--%>
+<%--        response.sendRedirect("login.jsp");--%>
+<%--        return;--%>
+<%--    }--%>
+<%--%>--%>
 <!DOCTYPE html>
 <html>
 <head>
     <title>Admin Dashboard - PahanaEdu Book Shop</title>
     <link rel="stylesheet" href="../assets/css/bootstrap.min.css">
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <style>
         * {
@@ -426,78 +425,81 @@
     </style>
 </head>
 <body>
+<%@ include file="layouts/navbar.jsp" %>
+<%@ include file="layouts/sidebar.jsp" %>
 <!-- Mobile Header -->
-<div class="mobile-header">
-    <h5 class="navbar-brand">
-        <i class="fas fa-book"></i> PahanaEdu Books
-    </h5>
-    <button class="mobile-toggle" onclick="toggleSidebar()">
-        <i class="fas fa-bars"></i>
-    </button>
-</div>
+<%--<div class="mobile-header">--%>
+<%--    <h5 class="navbar-brand">--%>
+<%--        <i class="fas fa-book"></i> PahanaEdu Books--%>
+<%--    </h5>--%>
+<%--    <button class="mobile-toggle" onclick="toggleSidebar()">--%>
+<%--        <i class="fas fa-bars"></i>--%>
+<%--    </button>--%>
+<%--</div>--%>
 
 <!-- Sidebar Overlay -->
-<div class="sidebar-overlay" onclick="closeSidebar()"></div>
+<%--<div class="sidebar-overlay" onclick="closeSidebar()"></div>--%>
 
-<div class="sidebar" id="sidebar">
-    <div class="sidebar-header">
-        <h4>
-            <i class="fas fa-book"></i>
-            PahanaEdu Books
-        </h4>
-    </div>
+<%--<div class="sidebar" id="sidebar">--%>
+<%--    <div class="sidebar-header">--%>
+<%--        <h4>--%>
+<%--            <i class="fas fa-book"></i>--%>
+<%--            PahanaEdu Books--%>
+<%--        </h4>--%>
+<%--    </div>--%>
 
-    <div class="sidebar-menu">
-        <a href="adminDashboard.jsp" class="active">
-            <i class="fas fa-tachometer-alt"></i>
-            Dashboard
-        </a>
-        <a href="#">
-            <i class="fas fa-user-shield"></i>
-            Admin Details
-        </a>
-        <a href="#">
-            <i class="fas fa-cash-register"></i>
-            Cashier Details
-        </a>
-        <a href="addCustomer.jsp">
-            <i class="fas fa-users"></i>
-            Add Customer
-        </a>
-        <a href="viewCustomer.jsp">
-            <i class="fas fa-users"></i>
-            Customer Details
-        </a>
-        <a href="addBook.jsp">
-            <i class="fas fa-plus-circle"></i>
-            Add Book Item
-        </a>
-        <a href="#">
-            <i class="fas fa-book-open"></i>
-            Manage Book Item
-        </a>
-        <a href="#">
-            <i class="fas fa-receipt"></i>
-            Bill System
-        </a>
-        <a href="#">
-            <i class="fas fa-print"></i>
-            View / Print Bills
-        </a>
-    </div>
+<%--    <div class="sidebar-menu">--%>
+<%--        <a href="adminDashboard.jsp" class="active">--%>
+<%--            <i class="fas fa-tachometer-alt"></i>--%>
+<%--            Dashboard--%>
+<%--        </a>--%>
+<%--        <a href="#">--%>
+<%--            <i class="fas fa-user-shield"></i>--%>
+<%--            Admin Details--%>
+<%--        </a>--%>
+<%--        <a href="#">--%>
+<%--            <i class="fas fa-cash-register"></i>--%>
+<%--            Cashier Details--%>
+<%--        </a>--%>
+<%--        <a href="addCustomer.jsp">--%>
+<%--            <i class="fas fa-users"></i>--%>
+<%--            Add Customer--%>
+<%--        </a>--%>
+<%--        <a href="viewCustomer.jsp">--%>
+<%--            <i class="fas fa-users"></i>--%>
+<%--            Customer Details--%>
+<%--        </a>--%>
+<%--        <a href="addBook.jsp">--%>
+<%--            <i class="fas fa-plus-circle"></i>--%>
+<%--            Add Book Item--%>
+<%--        </a>--%>
+<%--        <a href="#">--%>
+<%--            <i class="fas fa-book-open"></i>--%>
+<%--            Manage Book Item--%>
+<%--        </a>--%>
+<%--        <a href="#">--%>
+<%--            <i class="fas fa-receipt"></i>--%>
+<%--            Bill System--%>
+<%--        </a>--%>
+<%--        <a href="#">--%>
+<%--            <i class="fas fa-print"></i>--%>
+<%--            View / Print Bills--%>
+<%--        </a>--%>
+<%--    </div>--%>
 
-    <div class="sidebar-footer">
-        <div class="user-info">
-            <i class="fas fa-user"></i>
-            Logged in as: <%= user.getUsername() %>
-        </div>
-        <a href="login.jsp" class="logout-btn">
-            <i class="fas fa-sign-out-alt"></i>
-            Logout
-        </a>
-    </div>
-</div>
+<%--    <div class="sidebar-footer">--%>
+<%--        <div class="user-info">--%>
+<%--            <i class="fas fa-user"></i>--%>
+<%--            Logged in as: <%= user.getUsername() %>--%>
+<%--        </div>--%>
+<%--        <a href="login.jsp" class="logout-btn">--%>
+<%--            <i class="fas fa-sign-out-alt"></i>--%>
+<%--            Logout--%>
+<%--        </a>--%>
+<%--    </div>--%>
+<%--</div>--%>
 
+<br><br><br>
 <div class="content">
     <div class="container-fluid">
         <div class="row">
@@ -668,6 +670,8 @@
     </div>
 </div>
 
+
+<%@ include file="layouts/footer.jsp" %>
 
 
 <script src="../assets/js/bootstrap.bundle.min.js"></script>
