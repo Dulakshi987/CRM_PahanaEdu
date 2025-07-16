@@ -1,6 +1,5 @@
 package com.billsystem.services;
 
-import com.billsystem.dao.CustomerDao;
 import com.billsystem.models.Customer;
 
 import java.util.List;
