@@ -18,7 +18,7 @@ public class RegisterServlet extends HttpServlet {
         String username = request.getParameter("username");
         String password = request.getParameter("password");
         String email = request.getParameter("email");
-        int usertype = Integer.parseInt(request.getParameter("usertype")); // 0 or 1
+        int usertype = Integer.parseInt(request.getParameter("usertype")); // 0 = admin or 1 =cashier
 
         // Set to model
         User user = new User();

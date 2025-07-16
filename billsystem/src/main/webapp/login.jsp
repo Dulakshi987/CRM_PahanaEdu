@@ -125,7 +125,7 @@
             <% } %>
 
             <h2>Sign In</h2>
-<%--            <small>Please enter your details</small>--%>
+            <%--            <small>Please enter your details</small>--%>
 
             <form method="post" action="login" class="mt-4">
                 <div class="mb-3">
@@ -141,7 +141,7 @@
                 <div class="mb-3 form-check">
                     <input type="checkbox" class="form-check-input" id="remember">
                     <label class="form-check-label" for="remember">Remember me</label>
-<%--                    <a href="#" class="float-end" style="font-size: 12px;">Forgot password?</a>--%>
+                    <%--                    <a href="#" class="float-end" style="font-size: 12px;">Forgot password?</a>--%>
                 </div>
 
                 <button type="submit" class="btn btn-login mt-2">Sign In</button>

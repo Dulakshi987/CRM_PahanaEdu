@@ -2,18 +2,29 @@ package com.billsystem.dao;
 
 import com.billsystem.models.User;
 import com.billsystem.utils.DBConnection;
+import com.billsystem.utils.HashPassword;
 
 import java.sql.*;
 
 public class UserDao {
 
-    public User login(String username, String password) {
+    public User login(String username, String hashedPassword) {
         User user = null;
         String sql = "SELECT * FROM users WHERE username=? AND password=?";
         try (Connection conn = DBConnection.getConnection();
              PreparedStatement ps = conn.prepareStatement(sql)) {
+
+            // Hash the password for comparison
+//            String hashedPassword = HashPassword.hashPassword(password);
+
+            //  Debugging: print inputs
+            System.out.println(" Login Attempt");
+            System.out.println("Username: " + username);
+            System.out.println("Hashed Password: " + hashedPassword);
+
             ps.setString(1, username);
-            ps.setString(2, password);
+            ps.setString(2, hashedPassword);
+
             ResultSet rs = ps.executeQuery();
             if (rs.next()) {
                 user = new User();
@@ -33,6 +44,14 @@ public class UserDao {
         String sql = "INSERT INTO users (username, password, email, usertype) VALUES (?, ?, ?, ?)";
         try (Connection conn = DBConnection.getConnection();
              PreparedStatement ps = conn.prepareStatement(sql)) {
+
+            // Debug user data
+            System.out.println(" Registering new user:");
+            System.out.println("Username: " + user.getUsername());
+            System.out.println("Email: " + user.getEmail());
+            System.out.println("Usertype: " + user.getUsertype());
+            System.out.println("Hashed Password: " + user.getPassword());
+
             ps.setString(1, user.getUsername());
             ps.setString(2, user.getPassword());
             ps.setString(3, user.getEmail());

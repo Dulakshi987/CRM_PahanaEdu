@@ -7,7 +7,7 @@ public class User {
     private String email;
     private int usertype;
 
-    // Getters and setters
+    // Getters and setters for user table
     public int getId() { return id; }
     public void setId(int id) { this.id = id; }
 
