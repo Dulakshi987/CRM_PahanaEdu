@@ -1,90 +1,61 @@
-<%--
-  Created by IntelliJ IDEA.
-  User: Dulakshi
-  Date: 19/07/2025
-  Time: 9:49 am
-  To change this template use File | Settings | File Templates.
---%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <!DOCTYPE html>
 <html>
 <head>
     <title>Add Item - PahanaEdu Book Shop</title>
     <style>
+        /* Same style as your addCustomer.jsp or customize */
         .form-container {
             background: white;
             padding: 30px;
             border-radius: 15px;
-            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
             max-width: 600px;
             margin: auto;
             margin-top: 30px;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.1);
         }
-
         .styled-form {
             display: flex;
             flex-direction: column;
-            gap: 20px;
+            gap: 15px;
         }
-
         .form-group {
             display: flex;
             flex-direction: column;
         }
-
         .form-group label {
+            font-weight: 600;
             margin-bottom: 5px;
-            font-weight: 500;
-            color: #333;
         }
-
-        .form-group input[type="text"],
-        .form-group input[type="number"],
-        .form-group textarea,
-        .form-group select {
+        .form-group input, select {
             padding: 10px;
-            border: 1px solid #ccc;
             border-radius: 8px;
-            font-size: 14px;
-            transition: border-color 0.3s ease;
+            border: 1px solid #ccc;
         }
-
-        .form-group input:focus,
-        .form-group textarea:focus,
-        .form-group select:focus {
-            border-color: #e7993c;
-            outline: none;
-        }
-
         .submit-btn {
-            background: #e7993c;
+            background-color: #e7993c;
             color: white;
             border: none;
             padding: 12px;
             font-size: 16px;
             border-radius: 8px;
             cursor: pointer;
-            transition: background 0.3s ease;
         }
-
         .submit-btn:hover {
-            background: #d4831f;
+            background-color: #d4831f;
         }
-
         .success-msg {
             color: green;
             font-weight: bold;
-            margin-top: 15px;
+            margin-bottom: 15px;
             text-align: center;
         }
-
     </style>
 </head>
 <body>
 
 <%@ include file="layouts/sidebar.jsp" %>
 <%@ include file="layouts/navbar.jsp" %>
-
 <br><br><br><br>
 
 <div class="content">
@@ -92,69 +63,46 @@
         <h3>Add Item</h3>
     </div>
 
-    <div class="form-container">
-        <% if ("true".equals(request.getParameter("success"))) { %>
-        <p class="success-msg">Item added successfully!</p>
-        <% } %>
+<div class="form-container">
 
-        <form action="ItemServlet" method="post" class="styled-form">
-            <div class="form-group">
-                <label>Item Name:</label>
-                <input type="text" name="itemName" required>
-            </div>
+    <% if ("true".equals(request.getParameter("success"))) { %>
+    <p class="success-msg">Item added successfully!</p>
+    <% } %>
 
-            <div class="form-group">
-                <label>Item Code:</label>
-                <input type="text" name="itemCode" required maxlength="50" class="form-control" placeholder="Enter unique Item Code">
-            </div>
-
-
-            <div class="form-group">
-                <label>Description:</label>
-                <textarea name="description" rows="3"></textarea>
-            </div>
-
-            <div class="form-group">
-                <label>Price Per Unit:</label>
-                <input type="number" step="0.01" name="pricePerUnit" required>
-            </div>
-
-            <div class="form-group">
-                <label>Stock Quantity:</label>
-                <input type="number" name="stockQuantity" required>
-            </div>
-
-            <div class="form-group">
-                <label>Status:</label>
-                <select name="status">
-                    <option value="Active">Active</option>
-                    <option value="Discontinued">Discontinued</option>
-                </select>
-            </div>
-
-            <div class="form-group">
-                <input type="submit" value="Add Item" class="submit-btn">
-            </div>
-
-            <%
-                String successMessage = (String) session.getAttribute("successMessage");
-                if (successMessage != null) {
-            %>
-            <div class="alert alert-success alert-dismissible fade show" role="alert">
-                <%= successMessage %>
-                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-            </div>
-            <%
-                    session.removeAttribute("successMessage");
-                }
-            %>
-
-        </form>
-    </div>
+    <form action="ItemServlet" method="post" class="styled-form">
+        <div class="form-group">
+            <label for="itemCode">Item Code</label>
+            <input type="text" id="itemCode" name="itemCode" required>
+        </div>
+        <div class="form-group">
+            <label for="itemName">Item Name</label>
+            <input type="text" id="itemName" name="itemName" required>
+        </div>
+        <div class="form-group">
+            <label for="description">Description</label>
+            <input type="text" id="description" name="description">
+        </div>
+        <div class="form-group">
+            <label for="pricePerUnit">Price per Unit</label>
+            <input type="number" step="0.01" id="pricePerUnit" name="pricePerUnit" required>
+        </div>
+        <div class="form-group">
+            <label for="stockQuantity">Stock Quantity</label>
+            <input type="number" id="stockQuantity" name="stockQuantity" required>
+        </div>
+        <div class="form-group">
+            <label for="status">Status</label>
+            <select id="status" name="status" required>
+                <option value="Active" selected>Active</option>
+                <option value="Discontinued">Discontinued</option>
+            </select>
+        </div>
+        <input type="submit" value="Add Item" class="submit-btn">
+    </form>
+</div>
 </div>
 
 <%@ include file="layouts/footer.jsp" %>
 
 </body>
 </html>
-

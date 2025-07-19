@@ -17,7 +17,16 @@ public class ItemService {
         return itemDao.getAllItems();
     }
 
-    public List<Item> searchItemsByName(String name) {
-        return itemDao.searchItemsByName(name);
+    public Item getItemById(int itemId) {
+        return itemDao.getItemById(itemId);
+    }
+
+    public boolean updateItem(Item item) {
+        return itemDao.updateItem(item);
+    }
+
+
+    public void deleteItem(int itemId) {
+        itemDao.deleteItem(itemId);
     }
 }
