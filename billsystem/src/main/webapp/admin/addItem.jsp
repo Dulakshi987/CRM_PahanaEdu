@@ -104,6 +104,12 @@
             </div>
 
             <div class="form-group">
+                <label>Item Code:</label>
+                <input type="text" name="itemCode" required maxlength="50" class="form-control" placeholder="Enter unique Item Code">
+            </div>
+
+
+            <div class="form-group">
                 <label>Description:</label>
                 <textarea name="description" rows="3"></textarea>
             </div>

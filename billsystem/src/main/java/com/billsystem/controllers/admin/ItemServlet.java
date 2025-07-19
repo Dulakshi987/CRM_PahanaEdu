@@ -1,4 +1,4 @@
-package com.billsystem.controllers;
+package com.billsystem.controllers.admin;
 
 import com.billsystem.models.Item;
 import com.billsystem.services.ItemService;
@@ -16,6 +16,7 @@ public class ItemServlet extends HttpServlet {
             throws ServletException, IOException {
 
         Item item = new Item();
+        item.setItemCode(request.getParameter("itemCode"));
         item.setItemName(request.getParameter("itemName"));
         item.setDescription(request.getParameter("description"));
         item.setPricePerUnit(Double.parseDouble(request.getParameter("pricePerUnit")));
