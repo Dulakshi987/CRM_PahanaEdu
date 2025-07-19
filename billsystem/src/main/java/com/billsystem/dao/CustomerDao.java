@@ -39,4 +39,33 @@ public class CustomerDao {
             e.printStackTrace();
         }
     }
+
+    public List<Customer> getAllCustomers() {
+        List<Customer> customers = new ArrayList<>();
+        String sql = "SELECT * FROM customers";
+
+        try (Connection conn = DBConnection.getConnection();
+             PreparedStatement ps = conn.prepareStatement(sql);
+             ResultSet rs = ps.executeQuery()) {
+
+            while (rs.next()) {
+                Customer customer = new Customer();
+                customer.setId(rs.getInt("id"));
+                customer.setAccountNumber(rs.getString("account_number"));
+                customer.setFirstName(rs.getString("first_name"));
+                customer.setLastName(rs.getString("last_name"));
+                customer.setNid(rs.getString("nid"));
+                customer.setAddress(rs.getString("address"));
+                customer.setContactNumber(rs.getString("contact_number"));
+                customer.setEmergencyNumber(rs.getString("emergency_number"));
+                customer.setEmail(rs.getString("email"));
+
+                customers.add(customer);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return customers;
+    }
+
 }

@@ -35,49 +35,19 @@
         <url-pattern>/admin/CustomerServlet</url-pattern>
     </servlet-mapping>
 
-    <!-- View Customers -->
     <servlet>
-        <servlet-name>ViewCustomerServlet</servlet-name>
+        <servlet-name>ViewCustomersServlet</servlet-name>
         <servlet-class>com.billsystem.controllers.admin.ViewCustomerServlet</servlet-class>
     </servlet>
     <servlet-mapping>
-        <servlet-name>ViewCustomerServlet</servlet-name>
+        <servlet-name>ViewCustomersServlet</servlet-name>
         <url-pattern>/admin/ViewCustomerServlet</url-pattern>
     </servlet-mapping>
 
-    <!-- Edit Customer -->
-    <servlet>
-        <servlet-name>EditCustomerServlet</servlet-name>
-        <servlet-class>com.billsystem.controllers.admin.EditCustomerServlet</servlet-class>
-    </servlet>
-    <servlet-mapping>
-        <servlet-name>EditCustomerServlet</servlet-name>
-        <url-pattern>/admin/EditCustomerServlet</url-pattern>
-    </servlet-mapping>
-
-    <!-- Update Customer -->
-    <servlet>
-        <servlet-name>UpdateCustomerServlet</servlet-name>
-        <servlet-class>com.billsystem.controllers.admin.UpdateCustomerServlet</servlet-class>
-    </servlet>
-    <servlet-mapping>
-        <servlet-name>UpdateCustomerServlet</servlet-name>
-        <url-pattern>/admin/UpdateCustomerServlet</url-pattern>
-    </servlet-mapping>
-
-    <!-- Delete Customer -->
-    <servlet>
-        <servlet-name>DeleteCustomerServlet</servlet-name>
-        <servlet-class>com.billsystem.controllers.admin.DeleteCustomerServlet</servlet-class>
-    </servlet>
-    <servlet-mapping>
-        <servlet-name>DeleteCustomerServlet</servlet-name>
-        <url-pattern>/admin/DeleteCustomerServlet</url-pattern>
-    </servlet-mapping>
 
     <!-- Optional: Default Page -->
     <welcome-file-list>
-        <welcome-file>index.jsp</welcome-file>
+        <welcome-file>login.jsp</welcome-file>
     </welcome-file-list>
 
 </web-app>

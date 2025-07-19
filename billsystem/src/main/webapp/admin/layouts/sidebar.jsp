@@ -187,8 +187,9 @@
     <div class="sidebar-menu">
         <a href="admin/adminDashboard.jsp" class="active"><i class="fas fa-tachometer-alt"></i> Dashboard</a>
         <a href="#"><i class="fas fa-cash-register"></i> Cashier Details</a>
-        <a href="viewCustomer.jsp"><i class="fas fa-users"></i> Customer Details</a>
-        <a href="addCustomer.jsp"><i class="fas fa-user-plus"></i> Add Customer</a>
+        <a href="${pageContext.request.contextPath}/admin/ViewCustomerServlet">
+            <i class="fas fa-users"></i> Customer Details
+        </a>        <a href="addCustomer.jsp"><i class="fas fa-user-plus"></i> Add Customer</a>
         <a href="#"><i class="fas fa-user-plus"></i> Add Cashier</a>
         <a href="#"><i class="fas fa-plus-circle"></i> Add Book Item</a>
         <a href="#"><i class="fas fa-book-open"></i> Manage Book Item</a>

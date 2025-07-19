@@ -76,10 +76,13 @@
 <%@ include file="layouts/sidebar.jsp" %>
 <%@ include file="layouts/navbar.jsp" %>
 
+<br><br><br><br>
+
 <div class="content">
-    <div class="content-header">
+    <div class="content-header" style="text-align: center">
         <h3>Add Customer</h3>
     </div>
+
 
     <div class="form-container">
         <% if ("true".equals(request.getParameter("success"))) { %>
@@ -132,7 +135,9 @@
                 <input type="submit" value="Add Customer" class="submit-btn">
             </div>
 
-
+            <% if ("true".equals(request.getParameter("success"))) { %>
+            <p class="success-msg">Customer added successfully!</p>
+            <% } %>
         </form>
     </div>
 </div>

@@ -1,18 +1,21 @@
 package com.billsystem.services;
 
 import com.billsystem.dao.CustomerDao;
+import com.billsystem.factory.DaoFactory;
 import com.billsystem.models.Customer;
 
 import java.util.List;
 
 public class CustomerService {
 
-    // Make DAO final since it doesn’t change
-    private final CustomerDao customerDao = new CustomerDao();
-
+    // DAO is created via factory, not directly
+    private final CustomerDao customerDao = DaoFactory.createCustomerDao();
 
     public void addCustomer(Customer customer) {
         customerDao.addCustomer(customer);
+    }
+    public List<Customer> getAllCustomers() {
+        return customerDao.getAllCustomers();
     }
 
 }
