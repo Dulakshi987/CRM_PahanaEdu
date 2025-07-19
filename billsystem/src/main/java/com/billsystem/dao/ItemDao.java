@@ -5,6 +5,10 @@ import com.billsystem.utils.DBConnection;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 
 public class ItemDao {
     public void addItem(Item item) {
@@ -29,5 +33,66 @@ public class ItemDao {
         } catch (Exception e) {
             e.printStackTrace();
         }
+    }
+
+    public List<Item> getAllItems() {
+        List<Item> itemList = new ArrayList<>();
+        String sql = "SELECT * FROM Item";
+
+        try (Connection conn = DBConnection.getConnection();
+             PreparedStatement stmt = conn.prepareStatement(sql);
+             ResultSet rs = stmt.executeQuery()) {
+
+            while (rs.next()) {
+                Item item = new Item();
+                item.setItemId(rs.getInt("item_id"));
+                item.setItemName(rs.getString("item_name"));
+                item.setItemCode(rs.getString("item_code"));
+                item.setDescription(rs.getString("description"));
+                item.setPricePerUnit(rs.getDouble("price_per_unit"));
+                item.setStockQuantity(rs.getInt("stock_quantity"));
+                item.setStatus(rs.getString("status"));
+                item.setCreatedAt(rs.getTimestamp("created_at"));
+                item.setUpdatedAt(rs.getTimestamp("updated_at"));
+
+                itemList.add(item);
+            }
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return itemList;
+    }
+
+    public List<Item> searchItemsByName(String name) {
+        List<Item> itemList = new ArrayList<>();
+        String sql = "SELECT * FROM Item WHERE item_name LIKE ?";
+
+        try (Connection conn = DBConnection.getConnection();
+             PreparedStatement stmt = conn.prepareStatement(sql)) {
+
+            stmt.setString(1, "%" + name + "%");
+            ResultSet rs = stmt.executeQuery();
+
+            while (rs.next()) {
+                Item item = new Item();
+                item.setItemId(rs.getInt("item_id"));
+                item.setItemName(rs.getString("item_name"));
+                item.setItemCode(rs.getString("item_code"));
+                item.setDescription(rs.getString("description"));
+                item.setPricePerUnit(rs.getDouble("price_per_unit"));
+                item.setStockQuantity(rs.getInt("stock_quantity"));
+                item.setStatus(rs.getString("status"));
+                item.setCreatedAt(rs.getTimestamp("created_at"));
+                item.setUpdatedAt(rs.getTimestamp("updated_at"));
+
+                itemList.add(item);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return itemList;
     }
 }
