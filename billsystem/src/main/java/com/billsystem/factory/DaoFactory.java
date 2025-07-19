@@ -1,6 +1,7 @@
 package com.billsystem.factory;
 
 import com.billsystem.dao.CustomerDao;
+import com.billsystem.dao.ItemDao;
 import com.billsystem.dao.UserDao;
 
 public class DaoFactory {
@@ -15,5 +16,8 @@ public class DaoFactory {
         return new UserDao();
     }
 
-    // You can add more DAOs here later...
+    public static ItemDao createItemDao() {
+        return new ItemDao();
+    }
 }
+
