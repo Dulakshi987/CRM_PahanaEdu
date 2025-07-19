@@ -82,6 +82,11 @@
     </div>
 
     <div class="form-container">
+        <% if ("true".equals(request.getParameter("success"))) { %>
+        <p class="success-msg">Customer added successfully!</p>
+        <% } %>
+
+
         <form action="CustomerServlet" method="post" class="styled-form">
             <div class="form-group">
                 <label>First Name:</label>
@@ -127,9 +132,7 @@
                 <input type="submit" value="Add Customer" class="submit-btn">
             </div>
 
-            <% if ("true".equals(request.getParameter("success"))) { %>
-            <p class="success-msg">Customer added successfully!</p>
-            <% } %>
+
         </form>
     </div>
 </div>
