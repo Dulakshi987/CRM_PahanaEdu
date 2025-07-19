@@ -67,5 +67,68 @@ public class CustomerDao {
         }
         return customers;
     }
+    public void deleteCustomer(int id) {
+        String sql = "DELETE FROM customers WHERE id=?";
+        try (Connection conn = DBConnection.getConnection();
+             PreparedStatement stmt = conn.prepareStatement(sql)) {
+            stmt.setInt(1, id);
+            stmt.executeUpdate();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void updateCustomer(Customer customer) {
+        String sql = "UPDATE customers SET account_number=?, first_name=?, last_name=?, nid=?, address=?, contact_number=?, emergency_number=?, email=? WHERE id=?";
+
+        try (Connection conn = DBConnection.getConnection();
+             PreparedStatement stmt = conn.prepareStatement(sql)) {
+
+            stmt.setString(1, customer.getAccountNumber());
+            stmt.setString(2, customer.getFirstName());
+            stmt.setString(3, customer.getLastName());
+            stmt.setString(4, customer.getNid());
+            stmt.setString(5, customer.getAddress());
+            stmt.setString(6, customer.getContactNumber());
+            stmt.setString(7, customer.getEmergencyNumber());
+            stmt.setString(8, customer.getEmail());
+            stmt.setInt(9, customer.getId());
+
+            stmt.executeUpdate();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public Customer getCustomerById(int id) {
+        Customer customer = null;
+        String sql = "SELECT * FROM customers WHERE id = ?";
+
+        try (Connection conn = DBConnection.getConnection();
+             PreparedStatement stmt = conn.prepareStatement(sql)) {
+
+            stmt.setInt(1, id);
+            ResultSet rs = stmt.executeQuery();
+
+            if (rs.next()) {
+                customer = new Customer();
+                customer.setId(rs.getInt("id"));
+                customer.setAccountNumber(rs.getString("account_number"));
+                customer.setFirstName(rs.getString("first_name"));
+                customer.setLastName(rs.getString("last_name"));
+                customer.setNid(rs.getString("nid")); // National ID, nullable
+                customer.setAddress(rs.getString("address"));
+                customer.setContactNumber(rs.getString("contact_number"));
+                customer.setEmergencyNumber(rs.getString("emergency_number"));
+                customer.setEmail(rs.getString("email"));
+            }
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return customer;
+    }
+
 
 }

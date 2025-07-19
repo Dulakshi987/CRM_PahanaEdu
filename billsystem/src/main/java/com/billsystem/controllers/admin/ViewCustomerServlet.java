@@ -23,4 +23,5 @@ public class ViewCustomerServlet extends HttpServlet {
         // Forward to JSP page to display customers
         request.getRequestDispatcher("/admin/viewCustomer.jsp").forward(request, response);
     }
+
 }

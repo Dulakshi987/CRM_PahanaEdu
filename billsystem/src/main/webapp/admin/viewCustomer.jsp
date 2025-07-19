@@ -62,6 +62,7 @@
         }
     %>
 
+
     <div class="mb-3">
         <input type="text" id="searchInput" class="form-control" placeholder="Search by Account No or NID...">
     </div>
