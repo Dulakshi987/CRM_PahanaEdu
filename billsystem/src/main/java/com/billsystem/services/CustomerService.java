@@ -14,9 +14,11 @@ public class CustomerService {
     public void addCustomer(Customer customer) {
         customerDao.addCustomer(customer);
     }
+
     public List<Customer> getAllCustomers() {
         return customerDao.getAllCustomers();
     }
+
     public void deleteCustomer(int id) {
         customerDao.deleteCustomer(id);
     }
