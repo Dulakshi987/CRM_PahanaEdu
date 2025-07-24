@@ -189,6 +189,18 @@
             </div>
         </div>
 
+        <%--        payament method--%>
+
+        <div class="form-group">
+            <label for="paymentMethod">Payment Method</label>
+            <select class="form-control" name="paymentMethod" id="paymentMethod" required>
+                <option value="">-- Select Payment Method --</option>
+                <option value="cash">Cash</option>
+                <option value="check">Check</option>
+                <option value="card">Card</option>
+            </select>
+        </div>
+
         <!-- Save & Print Buttons -->
 
         <div class="text-end mt-4">

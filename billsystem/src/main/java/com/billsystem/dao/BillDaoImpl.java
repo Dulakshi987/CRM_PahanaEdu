@@ -12,7 +12,7 @@ public class BillDaoImpl implements BillDao {
 
     @Override
     public boolean saveBillWithItems(Bill bill) {
-        String billSql = "INSERT INTO bill (customer_id, bill_date, total_amount, discount, tax, grand_total) VALUES (?, ?, ?, ?, ?, ?)";
+        String billSql = "INSERT INTO bill (customer_id, bill_date, total_amount, discount, tax, grand_total, payment_method) VALUES (?, ?, ?, ?, ?, ?, ?)";
         String itemSql = "INSERT INTO bill_item (bill_id, item_id, quantity, item_price, total_price) VALUES (?, ?, ?, ?, ?)";
 
         try {
@@ -25,6 +25,8 @@ public class BillDaoImpl implements BillDao {
                 billStmt.setDouble(4, bill.getDiscount());
                 billStmt.setDouble(5, bill.getTax());
                 billStmt.setDouble(6, bill.getGrandTotal());
+                billStmt.setString(7, bill.getPaymentMethod());
+
 
                 int billResult = billStmt.executeUpdate();
 

@@ -7,53 +7,73 @@ import com.billsystem.services.BillServiceImpl;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
-import javax.servlet.http.HttpServlet;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.*;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
-
-@WebServlet("/cashier/BillSubmitServlet")
+@WebServlet("/cashier/SaveBillServlet")
 public class BillSubmitServlet extends HttpServlet {
-    @Override
-
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        int customerId = Integer.parseInt(request.getParameter("customerId"));
-        double discount = Double.parseDouble(request.getParameter("discount"));
-        double tax = Double.parseDouble(request.getParameter("tax"));
-        double grandTotal = Double.parseDouble(request.getParameter("grandTotal"));
+        try {
+            int customerId = Integer.parseInt(request.getParameter("customerId").trim());
+            double discount = Double.parseDouble(request.getParameter("discount").trim());
+            double tax = Double.parseDouble(request.getParameter("tax").trim());
+            double grandTotal = Double.parseDouble(request.getParameter("grandTotal").trim());
+            String paymentMethod = request.getParameter("paymentMethod");
 
-        String[] itemIds = request.getParameterValues("itemId");
-        String[] quantities = request.getParameterValues("quantity");
-        String[] prices = request.getParameterValues("price");
-        String[] totals = request.getParameterValues("total");
 
-        List<BillItem> items = new ArrayList<>();
-        for (int i = 0; i < itemIds.length; i++) {
-            BillItem item = new BillItem();
-            item.setItemId(Integer.parseInt(itemIds[i]));
-            item.setQuantity(Integer.parseInt(quantities[i]));
-            item.setTotalPrice(Double.parseDouble(totals[i]));
-            items.add(item);
+            // Read bill items  from request
+            String[] itemIds = request.getParameterValues("itemId[]");
+            String[] quantities = request.getParameterValues("quantity[]");
+            String[] itemPrices = request.getParameterValues("itemPrice[]");
+            String[] totalPrices = request.getParameterValues("totalPrice[]");
+
+            List<BillItem> itemList = new ArrayList<>();
+            if (itemIds != null) {
+                for (int i = 0; i < itemIds.length; i++) {
+                    int itemId = Integer.parseInt(itemIds[i].trim());
+                    int quantity = Integer.parseInt(quantities[i].trim());
+                    double itemPrice = Double.parseDouble(itemPrices[i].trim());
+                    double totalPrice = Double.parseDouble(totalPrices[i].trim());
+
+                    BillItem item = new BillItem();
+                    item.setItemId(itemId);
+                    item.setQuantity(quantity);
+                    item.setItemPrice(itemPrice);
+                    item.setTotalPrice(totalPrice);
+
+                    itemList.add(item);
+                }
+            }
+
+            Bill bill = new Bill();
+            bill.setCustomerId(customerId);
+            bill.setDiscount(discount);
+            bill.setTax(tax);
+            bill.setGrandTotal(grandTotal);
+            bill.setPaymentMethod(paymentMethod);
+            bill.setItems(itemList);
+
+            // Save bill with items in the bill_item table
+
+            BillService billService = new BillServiceImpl();
+            boolean isSaved = billService.saveBillWithItems(bill);
+
+            HttpSession session = request.getSession();
+            if (isSaved) {
+                session.setAttribute("message", "Bill saved successfully.");
+                session.setAttribute("messageType", "success");
+                response.sendRedirect("generate-bill.jsp");
+            } else {
+                session.setAttribute("message", "Something went wrong while saving the bill.");
+                session.setAttribute("messageType", "error");
+                response.sendRedirect("generate-bill.jsp");
+            }
+
+
+        } catch (Exception e) {
+            response.sendRedirect("error.jsp");
         }
-
-        Bill bill = new Bill();
-        bill.setCustomerId(customerId);
-        bill.setDiscount(discount);
-        bill.setTax(tax);
-        bill.setGrandTotal(grandTotal);
-        bill.setTotalAmount(grandTotal); // or calc subtotal if needed
-        bill.setBillDate(java.time.LocalDate.now().toString());
-        bill.setItems(items);
-
-        BillService billService = new BillServiceImpl();
-        billService.saveBillWithItems(bill);
-
-        request.getRequestDispatcher("/generate-bill.jsp").forward(request, response);
     }
-
-
 }
-

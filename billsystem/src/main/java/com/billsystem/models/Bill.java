@@ -10,6 +10,7 @@ public class Bill {
     private double discount;
     private double tax;
     private double grandTotal;
+    private String paymentMethod;
     private List<BillItem> items;
 
 
@@ -78,4 +79,8 @@ public class Bill {
     public void setItems(List<BillItem> items) {
         this.items = items;
     }
+
+    public String getPaymentMethod() {return paymentMethod;}
+
+    public void setPaymentMethod(String paymentMethod) {this.paymentMethod = paymentMethod;}
 }
