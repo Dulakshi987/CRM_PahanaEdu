@@ -5,13 +5,14 @@ import java.util.List;
 public class Bill {
     private int billId;
     private int customerId;
+    private String billDate;
     private double totalAmount;
     private double discount;
     private double tax;
     private double grandTotal;
-    private String billDate;
+    private List<BillItem> items;
 
-    private List<BillItem> items; // List of bill items
+
 
     // Getters and Setters
     public int getBillId() {

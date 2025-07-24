@@ -5,44 +5,81 @@ import com.billsystem.models.BillItem;
 import com.billsystem.utils.DBConnection;
 
 import java.sql.*;
+import java.util.List;
 
 public class BillDaoImpl implements BillDao {
+    private Connection conn = DBConnection.getConnection();
+
     @Override
-    public void insertBillWithItems(Bill bill) {
-        try (Connection conn = DBConnection.getConnection()) {
+    public boolean saveBillWithItems(Bill bill) {
+        String billSql = "INSERT INTO bill (customer_id, bill_date, total_amount, discount, tax, grand_total) VALUES (?, ?, ?, ?, ?, ?)";
+        String itemSql = "INSERT INTO bill_item (bill_id, item_id, quantity, item_price, total_price) VALUES (?, ?, ?, ?, ?)";
+
+        try {
             conn.setAutoCommit(false);
 
-            // Insert into bill
-            String sqlBill = "INSERT INTO bill (customer_id, total_amount, discount, tax, grand_total, bill_date) VALUES (?, ?, ?, ?, ?, ?)";
-            PreparedStatement ps = conn.prepareStatement(sqlBill, Statement.RETURN_GENERATED_KEYS);
-            ps.setInt(1, bill.getCustomerId());
-            ps.setDouble(2, bill.getTotalAmount());
-            ps.setDouble(3, bill.getDiscount());
-            ps.setDouble(4, bill.getTax());
-            ps.setDouble(5, bill.getGrandTotal());
-            ps.setString(6, bill.getBillDate());
-            ps.executeUpdate();
+            try (PreparedStatement billStmt = conn.prepareStatement(billSql, Statement.RETURN_GENERATED_KEYS)) {
+                billStmt.setInt(1, bill.getCustomerId());
+                billStmt.setString(2, bill.getBillDate());
+                billStmt.setDouble(3, bill.getTotalAmount());
+                billStmt.setDouble(4, bill.getDiscount());
+                billStmt.setDouble(5, bill.getTax());
+                billStmt.setDouble(6, bill.getGrandTotal());
 
-            ResultSet rs = ps.getGeneratedKeys();
-            int billId = 0;
-            if (rs.next()) {
-                billId = rs.getInt(1);
+                int billResult = billStmt.executeUpdate();
+
+                if (billResult == 0) {
+                    conn.rollback();
+                    return false;
+                }
+
+                try (ResultSet rs = billStmt.getGeneratedKeys()) {
+                    if (rs.next()) {
+                        int billId = rs.getInt(1);
+
+                        try (PreparedStatement itemStmt = conn.prepareStatement(itemSql)) {
+                            for (BillItem item : bill.getItems()) {
+                                itemStmt.setInt(1, billId);
+                                itemStmt.setInt(2, item.getItemId());
+                                itemStmt.setInt(3, item.getQuantity());
+                                itemStmt.setDouble(4, item.getItemPrice());
+                                itemStmt.setDouble(5, item.getTotalPrice());
+                                itemStmt.addBatch();
+                            }
+
+                            int[] results = itemStmt.executeBatch();
+
+                            for (int result : results) {
+                                if (result == PreparedStatement.EXECUTE_FAILED) {
+                                    conn.rollback();
+                                    return false;
+                                }
+                            }
+                        }
+                    } else {
+                        conn.rollback();
+                        return false;
+                    }
+                }
             }
 
-            // Insert items
-            String sqlItem = "INSERT INTO bill_item (bill_id, item_id, quantity, total_price) VALUES (?, ?, ?, ?)";
-            PreparedStatement psItem = conn.prepareStatement(sqlItem);
-            for (BillItem item : bill.getItems()) {
-                psItem.setInt(1, billId);
-                psItem.setInt(2, item.getItemId());
-                psItem.setInt(3, item.getQuantity());
-                psItem.setDouble(4, item.getTotalPrice());
-                psItem.addBatch();
-            }
-            psItem.executeBatch();
             conn.commit();
+            return true;
+
         } catch (SQLException e) {
             e.printStackTrace();
+            try {
+                conn.rollback();
+            } catch (SQLException ex) {
+                ex.printStackTrace();
+            }
+            return false;
+        } finally {
+            try {
+                conn.setAutoCommit(true);
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
         }
     }
 }

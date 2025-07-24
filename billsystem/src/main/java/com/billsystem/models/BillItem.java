@@ -5,13 +5,10 @@ public class BillItem {
     private int billId;
     private int itemId;
     private int quantity;
+    private double itemPrice;
     private double totalPrice;
 
-    // Optional: item details
-    private String itemName;
-    private double itemPrice;
 
-    // Getters and Setters
     public int getId() {
         return id;
     }
@@ -50,14 +47,6 @@ public class BillItem {
 
     public void setTotalPrice(double totalPrice) {
         this.totalPrice = totalPrice;
-    }
-
-    public String getItemName() {
-        return itemName;
-    }
-
-    public void setItemName(String itemName) {
-        this.itemName = itemName;
     }
 
     public double getItemPrice() {
