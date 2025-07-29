@@ -1,11 +1,12 @@
 package com.billsystem.models;
 
+import java.sql.Timestamp;
 import java.util.List;
 
 public class Bill {
     private int billId;
     private int customerId;
-    private String billDate;
+    private Timestamp billDate;
     private double totalAmount;
     private double discount;
     private double tax;
@@ -13,6 +14,7 @@ public class Bill {
     private String paymentMethod;
     private List<BillItem> items;
 
+    private List<BillItem> items;
 
 
     // Getters and Setters
@@ -64,12 +66,8 @@ public class Bill {
         this.grandTotal = grandTotal;
     }
 
-    public String getBillDate() {
+    public Timestamp getBillDate() {
         return billDate;
-    }
-
-    public void setBillDate(String billDate) {
-        this.billDate = billDate;
     }
 
     public List<BillItem> getItems() {
