@@ -195,8 +195,9 @@
         <a href="${pageContext.request.contextPath}/admin/ViewItemsServlet">
             <i class="fas fa-users"></i>  Manage Item
         </a>        <a href="#"><i class="fas fa-receipt"></i> Bill System</a>
-        <a href="#"><i class="fas fa-print"></i> View / Print Bills</a>
-    </div>
+        <a href="${pageContext.request.contextPath}/admin/ViewBillServlet">
+            <i class="fas fa-file-invoice-dollar"></i>View Bills
+        </a>    </div>
 
     <div class="sidebar-footer">
         <div class="user-info">

@@ -5,6 +5,7 @@ import com.billsystem.models.BillItem;
 import com.billsystem.utils.DBConnection;
 
 import java.sql.*;
+import java.util.ArrayList;
 import java.util.List;
 
 public class BillDaoImpl implements BillDao {
@@ -83,5 +84,28 @@ public class BillDaoImpl implements BillDao {
                 e.printStackTrace();
             }
         }
+    }
+
+    @Override
+    public List<Bill> getAllBills() {
+        List<Bill> list = new ArrayList<>();
+        try (Connection con = DBConnection.getConnection();
+             PreparedStatement ps = con.prepareStatement("SELECT * FROM bill")) {
+
+            ResultSet rs = ps.executeQuery();
+            while (rs.next()) {
+                Bill bill = new Bill();
+                bill.setBillId(rs.getInt("bill_id"));
+                bill.setCustomerId(rs.getInt("customer_id"));
+//                bill.setDate(rs.getDate("date").toLocalDate());
+                bill.setGrandTotal(rs.getDouble("grand_total"));
+//                bill.setStatus(rs.getString("status"));
+                bill.setPaymentMethod(rs.getString("payment_method"));
+                list.add(bill);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return list;
     }
 }
