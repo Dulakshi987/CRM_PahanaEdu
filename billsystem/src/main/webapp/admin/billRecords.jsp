@@ -18,65 +18,131 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Bill Records</title>
+    <title>Bill Records - PahanaEdu Book Shop</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <style>
+        body {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            background: #f9f9f9;
+        }
+
+        .navbar {
+            position: fixed;
+            top: 0;
+            left: 260px; /* Sidebar width */
+            right: 0;
+            height: 60px;
+            z-index: 1000;
+        }
+
+        .main-content {
+            margin-left: 260px; /* Matches sidebar width */
+            padding: 30px;
+            padding-top: 100px; /* Leave space for navbar */
+        }
+
+        .form-container {
+            background: white;
+            padding: 30px;
+            border-radius: 15px;
+            max-width: 1000px;
+            margin: auto;
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
+        }
+
         .table thead {
             background: linear-gradient(135deg, #e7993c, #d4831f);
             color: white;
         }
+
+        .title {
+            text-align: center;
+            color: black;
+            margin-bottom: 25px;
+            font-size: 28px;
+            font-weight: 600;
+        }
     </style>
 </head>
 <body>
-<div class="container mt-5">
-    <h2 class="mb-4 text-center text-primary">📄 All Bills</h2>
 
-    <table class="table table-hover table-bordered">
-        <thead>
-        <tr>
-            <th>Bill Number</th>
-            <th>Customer</th>
-            <th>Account No</th>
-            <th>Date & Time</th>
-            <th>Total</th>
-            <th>Status</th>
-            <th>Payment</th>
-            <th>PDF</th>
-        </tr>
-        </thead>
-        <tbody>
-        <% if (bills != null && !bills.isEmpty()) {
-            for (Bill b : bills) {
-                Customer customer = customerService.getCustomerById(b.getCustomerId());
-        %>
-        <tr>
-            <td>BILL<%= b.getBillId() %></td>
-            <td><%= customer != null ? customer.getFirstName() : "Unknown" %></td>
-            <td><%= customer != null ? customer.getAccountNumber() : "-" %></td>
-            <td><%= b.getBillDate() != null ? sdf.format(b.getBillDate()) : "-" %></td>
-            <td>LKR <%= String.format("%.2f", b.getGrandTotal()) %></td>
-<%--            <td>--%>
-<%--                <% if ("Paid".equalsIgnoreCase(b.getStatus())) { %>--%>
-<%--                <span class="badge bg-success">Paid</span>--%>
-<%--                <% } else if ("Unpaid".equalsIgnoreCase(b.getStatus())) { %>--%>
-<%--                <span class="badge bg-warning text-dark">Unpaid</span>--%>
-<%--                <% } else { %>--%>
-<%--                <span class="badge bg-secondary">Unknown</span>--%>
-<%--                <% } %>--%>
-<%--            </td>--%>
-            <td><%= b.getPaymentMethod() %></td>
-            <td>
-                <a href="DownloadBillServlet?billId=<%= b.getBillId() %>" class="btn btn-outline-primary btn-sm">Download</a>
-            </td>
-        </tr>
-        <% }
-        } else { %>
-        <tr>
-            <td colspan="8" class="text-center text-danger">No bills found.</td>
-        </tr>
-        <% } %>
-        </tbody>
-    </table>
+<%@ include file="layouts/sidebar.jsp" %>
+<%@ include file="layouts/navbar.jsp" %>
+
+
+
+<div class="main-content">
+    <div class="form-container">
+        <h2 class="title">View all of bills</h2>
+
+        <%--search bar--%>
+        <div class="mb-3">
+            <input type="text" id="searchInput" class="form-control" placeholder="Search by Account No or Date (YYYY-MM-DD)">
+        </div>
+
+
+        <table class="table table-hover table-bordered">
+            <thead>
+            <tr>
+                <th>Bill Number</th>
+                <th>Customer</th>
+                <th>Account No</th>
+                <th>Date & Time</th>
+                <th>Total</th>
+                <th>Payment</th>
+                <th>PDF</th>
+            </tr>
+            </thead>
+            <tbody>
+            <% if (bills != null && !bills.isEmpty()) {
+                for (Bill b : bills) {
+                    Customer customer = customerService.getCustomerById(b.getCustomerId());
+            %>
+            <tr>
+                <td>BILL<%= b.getBillId() %></td>
+                <td><%= customer != null ? customer.getFirstName() : "Unknown" %></td>
+                <td><%= customer != null ? customer.getAccountNumber() : "-" %></td>
+                <td><%= b.getBillDate() != null ? sdf.format(b.getBillDate()) : "-" %></td>
+                <td>LKR <%= String.format("%.2f", b.getGrandTotal()) %></td>
+                <td><%= b.getPaymentMethod() != null ? b.getPaymentMethod() : "N/A" %></td>
+                <td>
+                    <a href="DownloadBillServlet?billId=<%= b.getBillId() %>" class="btn btn-outline-primary btn-sm">Download</a>
+                </td>
+            </tr>
+            <% }
+            } else { %>
+            <tr>
+                <td colspan="7" class="text-center text-danger">No bills found.</td>
+            </tr>
+            <% } %>
+            </tbody>
+        </table>
+    </div>
 </div>
+
+<%@ include file="layouts/footer.jsp" %>
+
+<script>
+    document.getElementById('searchInput').addEventListener('keyup', function () {
+        const filter = this.value.toLowerCase();
+        const rows = document.querySelectorAll('table tbody tr');
+
+        rows.forEach(row => {
+            const accountNo = row.cells[2].textContent.toLowerCase(); // Account No column
+            const billDate = row.cells[3].textContent.toLowerCase(); // Date & Time column
+
+            if (accountNo.includes(filter) || billDate.includes(filter)) {
+                row.style.display = '';
+            } else {
+                row.style.display = 'none';
+            }
+        });
+    });
+</script>
+
+
 </body>
+
 </html>
