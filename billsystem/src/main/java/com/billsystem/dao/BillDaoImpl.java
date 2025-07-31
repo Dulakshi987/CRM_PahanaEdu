@@ -21,7 +21,7 @@ public class BillDaoImpl implements BillDao {
 
             try (PreparedStatement billStmt = conn.prepareStatement(billSql, Statement.RETURN_GENERATED_KEYS)) {
                 billStmt.setInt(1, bill.getCustomerId());
-                billStmt.setString(2, bill.getBillDate());
+                billStmt.setTimestamp(2, bill.getBillDate());
                 billStmt.setDouble(3, bill.getTotalAmount());
                 billStmt.setDouble(4, bill.getDiscount());
                 billStmt.setDouble(5, bill.getTax());
@@ -97,7 +97,7 @@ public class BillDaoImpl implements BillDao {
                 Bill bill = new Bill();
                 bill.setBillId(rs.getInt("bill_id"));
                 bill.setCustomerId(rs.getInt("customer_id"));
-//                bill.setDate(rs.getDate("date").toLocalDate());
+                bill.setBillDate(rs.getTimestamp("bill_date"));
                 bill.setGrandTotal(rs.getDouble("grand_total"));
 //                bill.setStatus(rs.getString("status"));
                 bill.setPaymentMethod(rs.getString("payment_method"));

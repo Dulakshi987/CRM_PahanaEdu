@@ -14,7 +14,7 @@ public class Bill {
     private String paymentMethod;
     private List<BillItem> items;
 
-    private List<BillItem> items;
+
 
 
     // Getters and Setters
@@ -70,9 +70,9 @@ public class Bill {
         return billDate;
     }
 
-    public List<BillItem> getItems() {
-        return items;
-    }
+    public void setBillDate(Timestamp billDate) {this.billDate = billDate;}
+
+    public List<BillItem> getItems() {return items;}
 
     public void setItems(List<BillItem> items) {
         this.items = items;
