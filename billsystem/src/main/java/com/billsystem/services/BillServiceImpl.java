@@ -18,6 +18,17 @@ public class BillServiceImpl implements BillService {
     public List<Bill> getAllBills() {
         return billDao.getAllBills();
     }
+
+    @Override
+    public Bill getLatestBillByCustomerId(int customerId) {
+        return billDao.getLatestBillByCustomerId(customerId);
+    }
+
+    @Override
+    public String getCustomerEmailById(int customerId) {
+        return billDao.getCustomerEmailById(customerId);
+    }
+
 }
 
 

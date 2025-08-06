@@ -9,5 +9,8 @@ public interface BillService {
 
     List<Bill> getAllBills();
 
+    Bill getLatestBillByCustomerId(int customerId);
+    String getCustomerEmailById(int customerId);
+
 }
 

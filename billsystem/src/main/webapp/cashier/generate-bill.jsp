@@ -93,7 +93,7 @@
                 <option value="" disabled selected> Select Item </option>
                 <% for (Item i : items) { %>
                 <option value="<%= i.getItemId() %>">
-                    <%= i.getItemCode() %> - <%= i.getItemName() %> ($<%= String.format("%.2f", i.getPricePerUnit()) %>)
+                    <%= i.getItemCode() %> - <%= i.getItemName() %> (Rs.<%= String.format("%.2f", i.getPricePerUnit()) %>)
                 </option>
                 <% } %>
             </select>
@@ -154,7 +154,7 @@
                 <tfoot>
                 <tr>
                     <th colspan="4" class="text-end">Grand Total</th>
-                    <th id="grandTotalFooter">$<%= String.format("%.2f", grandTotal) %></th>
+                    <th id="grandTotalFooter">Rs.<%= String.format("%.2f", grandTotal) %></th>
                     <th></th>
                 </tr>
                 </tfoot>
@@ -219,23 +219,28 @@
             </div>
         </div>
 
-        <!-- Save and Print Buttons -->
+        <!-- Save & Print Buttons -->
         <div class="text-end mt-4">
-            <button type="button" class="btn btn-secondary" onclick="openPrintPreview()">Print Bill</button>
-            <button type="submit" class="btn btn-success"> Save to Database</button>
+
+            <button type="submit" class="btn btn-success" onclick="sendInvoiceEmail()">send email</button>
+            <button type="submit" class="btn btn-success"  onclick="openPrintPreview()"> Save and print</button>
+
         </div>
     </form>
 </div>
 
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 <script>
+    // Update customer email and hidden field
     document.getElementById("customerSelect").addEventListener("change", function () {
         const selectedOption = this.options[this.selectedIndex];
         const email = selectedOption.getAttribute("data-email") || "";
         const customerId = selectedOption.value;
         document.getElementById("customerEmail").value = email;
         document.getElementById("customerIdHidden").value = customerId;
+        document.getElementById("customerEmailHidden").value = email;
+
     });
+
 
     function removeRow(button) {
         const row = button.closest("tr");
@@ -254,6 +259,7 @@
         });
 
         document.getElementById("subtotal").value = subtotal.toFixed(2);
+
         const discount = parseFloat(document.getElementById("discount").value) || 0;
         const tax = parseFloat(document.getElementById("tax").value) || 0;
 
@@ -269,15 +275,11 @@
     window.onload = calculateTotal;
 
     function openPrintPreview() {
-        // Get all form values
         const form = document.querySelector('form');
         const formData = new FormData(form);
-
-        // Get customer selection
         const customerSelect = document.getElementById('customerSelect');
         const customerId = customerSelect.value;
 
-        // Create URL parameters
         const params = new URLSearchParams();
 
         // Add bill items
@@ -293,8 +295,67 @@
         params.append('customerId', customerId);
         params.append('grandTotal', document.getElementById('grandTotalHidden').value);
 
-        // Open print preview with all parameters
-        window.open('${pageContext.request.contextPath}/cashier/printbill.jsp?' + params.toString(), '_blank');
+        // Open the printable view
+        const printWindow = window.open('${pageContext.request.contextPath}/printbill.jsp?' + params.toString(), '_blank');
+
+        // Optional: Wait for load and trigger print
+        printWindow.onload = function () {
+            printWindow.print();
+        };
+    }
+
+    function sendInvoiceEmail() {
+        const customerId = document.getElementById("customerSelect").value;
+        const customerEmail = document.getElementById("customerEmail").value;
+
+        if (!customerId || !customerEmail) {
+            alert("Please select a customer first.");
+            return;
+        }
+
+        // Check if there are any bill items
+        const billRows = document.querySelectorAll("#billTable tbody tr");
+        if (billRows.length === 0) {
+            alert("Please add at least one item to the bill before sending email.");
+            return;
+        }
+
+        // Get current form values
+        const discount = document.getElementById("discount").value || "0";
+        const tax = document.getElementById("tax").value || "8";
+
+        // Create form data
+        const formData = new URLSearchParams({
+            customerId: customerId,
+            discount: discount,
+            tax: tax,
+            sendEmailOnly: 'yes'
+        });
+
+        // Show loading message
+        const originalText = event.target.innerText;
+        event.target.innerText = "Sending...";
+        event.target.disabled = true;
+
+        // Send request to SendEmailServlet
+        fetch("${pageContext.request.contextPath}/cashier/SendEmailServlet", {
+            method: "POST",
+            headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+            body: formData
+        })
+            .then(response => response.text())
+            .then(data => {
+                alert(data);
+                // Reset button
+                event.target.innerText = originalText;
+                event.target.disabled = false;
+            })
+            .catch(error => {
+                alert("Failed to send email: " + error);
+                // Reset button
+                event.target.innerText = originalText;
+                event.target.disabled = false;
+            });
     }
 
 </script>

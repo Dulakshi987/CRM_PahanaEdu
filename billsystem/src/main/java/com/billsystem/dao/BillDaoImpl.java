@@ -108,4 +108,49 @@ public class BillDaoImpl implements BillDao {
         }
         return list;
     }
+
+    @Override
+    public Bill getLatestBillByCustomerId(int customerId) {
+        String sql = "SELECT * FROM bill WHERE customer_id = ? ORDER BY bill_id DESC LIMIT 1";
+        try (Connection con = DBConnection.getConnection();
+             PreparedStatement ps = con.prepareStatement(sql)) {
+
+            ps.setInt(1, customerId);
+            ResultSet rs = ps.executeQuery();
+
+            if (rs.next()) {
+                Bill bill = new Bill();
+                bill.setBillId(rs.getInt("bill_id"));
+                bill.setCustomerId(rs.getInt("customer_id"));
+                bill.setBillDate(rs.getTimestamp("bill_date"));
+                bill.setDiscount(rs.getDouble("discount"));
+                bill.setTax(rs.getDouble("tax"));
+                bill.setGrandTotal(rs.getDouble("grand_total"));
+                bill.setPaymentMethod(rs.getString("payment_method"));
+                return bill;
+            }
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+
+    @Override
+    public String getCustomerEmailById(int customerId) {
+        String sql = "SELECT email FROM customer WHERE customer_id = ?";
+        try (Connection con = DBConnection.getConnection();
+             PreparedStatement ps = con.prepareStatement(sql)) {
+
+            ps.setInt(1, customerId);
+            ResultSet rs = ps.executeQuery();
+            if (rs.next()) {
+                return rs.getString("email");
+            }
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
 }
