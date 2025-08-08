@@ -114,6 +114,12 @@
 
             <div class="header-title"><span id="typewriter"></span></div>
 
+            <% String message = (String) request.getAttribute("message"); %>
+            <% if (message != null) { %>
+            <div class="feedback"><%= message %></div>
+            <% } %>
+
+
             <% String registered = request.getParameter("registered"); %>
             <% if ("true".equals(registered)) { %>
             <div class="feedback">Registration successful! Please log in.</div>
@@ -146,9 +152,13 @@
 
                 <button type="submit" class="btn btn-login mt-2">Sign In</button>
 
-                <div class="signup-link">
-                    Don’t have an account? <a href="register.jsp">Sign up</a>
+
+                <div class="text-center mt-3">
+                    <a href="restpassword.jsp" style="color: #e7993c; text-decoration: none; font-weight: bold;">
+                        Forgot Password?
+                    </a>
                 </div>
+
             </form>
         </div>
     </div>

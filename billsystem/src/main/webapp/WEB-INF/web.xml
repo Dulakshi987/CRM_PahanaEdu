@@ -18,7 +18,7 @@
     <!-- Register Servlet -->
     <servlet>
         <servlet-name>RegisterServlet</servlet-name>
-        <servlet-class>com.billsystem.controllers.RegisterServlet</servlet-class>
+        <servlet-class>com.billsystem.controllers.admin.RegisterServlet</servlet-class>
     </servlet>
     <servlet-mapping>
         <servlet-name>RegisterServlet</servlet-name>

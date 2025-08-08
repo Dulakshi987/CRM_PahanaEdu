@@ -3,7 +3,7 @@
 <html>
 <head>
     <title>Register - PahanaEdu Book Shop</title>
-    <link href="assets/css/bootstrap.min.css" rel="stylesheet">
+    <link href="../assets/css/bootstrap.min.css" rel="stylesheet">
     <style>
         body {
             background-color: #fff7e6;
@@ -107,13 +107,11 @@
             <button type="submit" class="btn btn-orange w-100">Register</button>
         </form>
 
-        <div class="text-center mt-3">
-            Already registered? <a href="login.jsp">Sign In</a>
-        </div>
+
     </div>
 </div>
 
-<script src="assets/js/bootstrap.bundle.min.js"></script>
+<script src="../assets/js/bootstrap.bundle.min.js"></script>
 <script>
     // Password strength indicator
     document.getElementById('password').addEventListener('input', function() {

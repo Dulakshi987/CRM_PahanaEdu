@@ -1,4 +1,4 @@
-package com.billsystem.controllers;
+package com.billsystem.controllers.admin;
 
 import com.billsystem.models.User;
 import com.billsystem.services.UserServices;

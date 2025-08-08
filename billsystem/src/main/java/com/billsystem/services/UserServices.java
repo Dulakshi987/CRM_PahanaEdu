@@ -18,4 +18,8 @@ public class UserServices {
         user.setPassword(hashedPassword);
         return userDao.register(user);
     }
+    // Reset password by username
+    public boolean resetPassword(String username, String newPassword) {
+        return userDao.updatePasswordByUsername(username, newPassword);
+    }
 }
