@@ -1,8 +1,6 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ page import="com.billsystem.models.User" %>
-<%
-    User user = (User) session.getAttribute("user");
-%>
+
 <html>
 <head>
     <title>Sidebar</title>
@@ -186,27 +184,15 @@
 
     <div class="sidebar-menu">
         <a href="admin/adminDashboard.jsp" class="active"><i class="fas fa-tachometer-alt"></i> Dashboard</a>
-        <a href="#"><i class="fas fa-cash-register"></i> Cashier Details</a>
-        <a href="${pageContext.request.contextPath}/admin/ViewCustomerServlet">
-            <i class="fas fa-users"></i> Customer Details
-        </a>        <a href="addCustomer.jsp"><i class="fas fa-user-plus"></i> Add Customer</a>
-        <a href="#"><i class="fas fa-user-plus"></i> Add Cashier</a>
+        <a href="register.jsp"><i class="fas fa-user-plus"></i> Add Users</a>
+        <a href="${pageContext.request.contextPath}/admin/UserManagementServlet""><i class="fas fa-cash-register"></i> Users Details</a>
+        <a href="addCustomer.jsp"><i class="fas fa-user-plus"></i> Add Customer</a>
+        <a href="${pageContext.request.contextPath}/admin/ViewCustomerServlet"><i class="fas fa-users"></i> Customers Details</a>
         <a href="addItem.jsp"><i class="fas fa-plus-circle"></i> Add  Item</a>
-        <a href="${pageContext.request.contextPath}/admin/ViewItemsServlet">
-            <i class="fas fa-users"></i>  Manage Item
-        </a>        <a href="#"><i class="fas fa-receipt"></i> Bill System</a>
-        <a href="${pageContext.request.contextPath}/admin/ViewBillServlet">
-            <i class="fas fa-file-invoice-dollar"></i>View Bills
-        </a>    </div>
-
-    <div class="sidebar-footer">
-        <div class="user-info">
-            <i class="fas fa-user"></i> Logged in as: <%= user.getUsername() %>
-        </div>
-        <a href="login.jsp" class="logout-btn">
-            <i class="fas fa-sign-out-alt"></i> Logout
-        </a>
+        <a href="${pageContext.request.contextPath}/admin/ViewItemsServlet"><i class="fas fa-users"></i>  Manage Item</a>
+        <a href="${pageContext.request.contextPath}/admin/ViewBillServlet"><i class="fas fa-file-invoice-dollar"></i>View Bills</a>
     </div>
+
 </div>
 
 </body>

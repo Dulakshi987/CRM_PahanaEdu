@@ -4,8 +4,11 @@ import com.billsystem.models.User;
 import com.billsystem.services.UserServices;
 
 import javax.servlet.ServletException;
+import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.*;
 import java.io.IOException;
+
+@WebServlet("/admin/RegisterServlet")
 
 public class RegisterServlet extends HttpServlet {
     private final UserServices userService = new UserServices();
@@ -29,7 +32,7 @@ public class RegisterServlet extends HttpServlet {
 
         // Save using service
         if (userService.register(user)) {
-            response.sendRedirect("login.jsp?registered=true");
+            response.sendRedirect("register.jsp?registered=true");
         } else {
             response.sendRedirect("register.jsp?error=1");
         }

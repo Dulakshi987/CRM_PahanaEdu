@@ -47,11 +47,30 @@
     </style>
 </head>
 <body>
+
+<%@ include file="layouts/sidebar.jsp" %>
+<%@ include file="layouts/navbar.jsp" %>
+
+<br><br><br><br>
+
 <div class="container">
     <div class="register-box">
         <div class="header-text">Create Your Account</div>
 
-        <%-- Error Messages --%>
+        <%
+            String registered = request.getParameter("registered");
+            if ("true".equals(registered)) {
+        %>
+        <div style="color: green; font-weight: bold; margin: 20px 0;">
+            Registration successful!
+        </div>
+        <%
+            }
+        %>
+
+
+
+    <%-- Error Messages --%>
         <% String error = request.getParameter("error"); %>
         <% if (error != null) { %>
         <div class="alert alert-danger">
@@ -71,7 +90,7 @@
         </div>
         <% } %>
 
-        <form id="registerForm" method="post" action="register">
+        <form id="registerForm" method="post" action="${pageContext.request.contextPath}/admin/RegisterServlet">
             <div class="mb-3">
                 <label class="form-label">Username <span class="text-danger">*</span></label>
                 <input type="text" name="username" class="form-control" required
@@ -104,7 +123,7 @@
                 </select>
             </div>
 
-            <button type="submit" class="btn btn-orange w-100">Register</button>
+            <button type="submit" class="btn btn-orange w-100" style="background-color: #e7993c;">Register</button>
         </form>
 
 

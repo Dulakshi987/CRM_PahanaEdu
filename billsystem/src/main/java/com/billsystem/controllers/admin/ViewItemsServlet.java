@@ -23,4 +23,6 @@ public class ViewItemsServlet extends HttpServlet {
 
         req.getRequestDispatcher("/admin/viewItems.jsp").forward(req, resp);
     }
+
+
 }

@@ -5,6 +5,8 @@ import com.billsystem.factory.DaoFactory;
 import com.billsystem.models.User;
 import com.billsystem.utils.HashPassword;
 
+import java.util.List;
+
 public class UserServices {
     private final UserDao userDao = DaoFactory.createUserDao();
 
@@ -18,6 +20,23 @@ public class UserServices {
         user.setPassword(hashedPassword);
         return userDao.register(user);
     }
+
+    public List<User> getAllUsers() {
+        return userDao.getAllUsers();
+    }
+
+    public void deleteUserById(int id) {
+        userDao.deleteUserById(id);
+    }
+
+    public User getUserById(int id) {
+        return userDao.getUserById(id);
+    }
+
+    public void updateUser(User user) {
+        userDao.updateUser(user);
+    }
+
     // Reset password by username
     public boolean resetPassword(String username, String newPassword) {
         return userDao.updatePasswordByUsername(username, newPassword);
