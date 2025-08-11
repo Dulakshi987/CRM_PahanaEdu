@@ -32,7 +32,7 @@ public class RegisterServlet extends HttpServlet {
 
         // Save using service
         if (userService.register(user)) {
-            response.sendRedirect("register.jsp?registered=true");
+            response.sendRedirect("adminDashboard.jsp?registered=true");
         } else {
             response.sendRedirect("register.jsp?error=1");
         }

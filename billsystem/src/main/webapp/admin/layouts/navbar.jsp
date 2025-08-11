@@ -185,14 +185,11 @@
             <div class="navbar-item" title="Search">
                 <i class="fas fa-search"></i>
             </div>
-<%--            <div class="navbar-item" title="Notifications">--%>
-<%--                <i class="fas fa-bell"></i>--%>
-<%--            </div>--%>
+
             <div class="navbar-item dropdown">
                 <span><i class="fas fa-user-circle"></i> Admin</span>
                 <div class="dropdown-content">
-<%--                    <a href="#"><i class="fas fa-user"></i> Profile</a>--%>
-                    <a href="login.jsp"><i class="fas fa-sign-out-alt"></i> Logout</a>
+                    <a href="<%= request.getContextPath() %>/LogoutServlet">Logout</a>
                 </div>
             </div>
         </div>

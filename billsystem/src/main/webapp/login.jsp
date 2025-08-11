@@ -105,6 +105,10 @@
             font-weight: bold;
             margin-bottom: 10px;
         }
+        .message {
+            margin-top: 15px;
+            color: green;
+        }
     </style>
 </head>
 <body>
@@ -113,12 +117,6 @@
         <div class="card">
 
             <div class="header-title"><span id="typewriter"></span></div>
-
-            <% String message = (String) request.getAttribute("message"); %>
-            <% if (message != null) { %>
-            <div class="feedback"><%= message %></div>
-            <% } %>
-
 
             <% String registered = request.getParameter("registered"); %>
             <% if ("true".equals(registered)) { %>
@@ -129,6 +127,10 @@
             <% if ("invalid".equals(error)) { %>
             <div class="error-feedback">Invalid username or password!</div>
             <% } %>
+
+            <div class="message">
+                <%= request.getAttribute("message") != null ? request.getAttribute("message") : "" %>
+            </div>
 
             <h2>Sign In</h2>
             <%--            <small>Please enter your details</small>--%>
@@ -152,7 +154,7 @@
 
                 <button type="submit" class="btn btn-login mt-2">Sign In</button>
 
-
+                <!-- After Sign In button in your login.jsp -->
                 <div class="text-center mt-3">
                     <a href="restpassword.jsp" style="color: #e7993c; text-decoration: none; font-weight: bold;">
                         Forgot Password?

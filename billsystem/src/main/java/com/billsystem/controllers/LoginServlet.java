@@ -4,9 +4,12 @@ import com.billsystem.models.User;
 import com.billsystem.services.UserServices;
 
 import javax.servlet.ServletException;
+import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.*;
 import java.io.IOException;
 
+
+@WebServlet("/LoginServlet")
 public class LoginServlet extends HttpServlet {
     private final UserServices userService = new UserServices();
 
@@ -22,15 +25,15 @@ public class LoginServlet extends HttpServlet {
         if (user != null) {
             HttpSession session = request.getSession();
             session.setAttribute("user", user);
+            session.setAttribute("loggedUser", user.getUsername());
+            session.setAttribute("role", user.getUsertype()); // 0 = admin, 1 = cashier
+            session.setMaxInactiveInterval(30 * 60);
 
-            // Redirect based on usertype
             if (user.getUsertype() == 0) {
-                response.sendRedirect("admin/adminDashboard.jsp");
+                response.sendRedirect(request.getContextPath() + "/admin/adminDashboard.jsp");
             } else {
-                response.sendRedirect("cashier/cashierDashboard.jsp");
+                response.sendRedirect(request.getContextPath() + "/cashier/cashierDashboard.jsp");
             }
-        } else {
-            response.sendRedirect("login.jsp?error=invalid");
         }
     }
 }
