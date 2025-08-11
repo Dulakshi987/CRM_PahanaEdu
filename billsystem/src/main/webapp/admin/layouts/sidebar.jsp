@@ -191,6 +191,8 @@
         <a href="addItem.jsp"><i class="fas fa-plus-circle"></i> Add  Item</a>
         <a href="${pageContext.request.contextPath}/admin/ViewItemsServlet"><i class="fas fa-users"></i>  Manage Item</a>
         <a href="${pageContext.request.contextPath}/admin/ViewBillServlet"><i class="fas fa-file-invoice-dollar"></i>View Bills</a>
+        <a href="help.jsp"><i class="fas fa-plus-circle"></i> Help Section</a>
+
     </div>
 
 </div>
