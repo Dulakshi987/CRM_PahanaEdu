@@ -1,8 +1,6 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ page import="com.billsystem.models.User" %>
-<%
-    User user = (User) session.getAttribute("user");
-%>
+
 <html>
 <head>
     <title>Sidebar</title>
@@ -186,30 +184,13 @@
 
     <div class="sidebar-menu">
         <a href="cashierDashboard.jsp" class="active"><i class="fas fa-tachometer-alt"></i> Dashboard</a>
-
-        <a href="#"><i class="fas fa-cash-register"></i> Cashier Details</a>
-
-        <a href="${pageContext.request.contextPath}/admin/ViewCustomerServlet">
-            <i class="fas fa-users"></i> Customer Details
-        </a>
-
-        <a href="${pageContext.request.contextPath}/cashier/generate-bill.jsp">
-            <i class="fas fa-file-invoice-dollar"></i> Generate Bill
-        </a>
-
-        <a href="#"><i class="fas fa-receipt"></i> View Bills</a>
+        <a href="${pageContext.request.contextPath}/cashier/ViewCustomerServlet"><i class="fas fa-users"></i> Customer Details</a>
+        <a href="${pageContext.request.contextPath}/cashier/generate-bill.jsp"><i class="fas fa-file-invoice-dollar"></i> Generate Bill</a>
+        <a href="${pageContext.request.contextPath}/cashier/ViewBillServlet"><i class="fas fa-file-invoice-dollar"></i>View Bills</a>
 
     </div>
 
-    <div class="sidebar-footer">
-        <div class="user-info">
-            <i class="fas fa-user"></i> Logged in as: <%= user.getUsername() %>
-        </div>
-        <a href="login.jsp" class="logout-btn">
-            <i class="fas fa-sign-out-alt"></i> Logout
-        </a>
-    </div>
+
 </div>
-
 </body>
 </html>

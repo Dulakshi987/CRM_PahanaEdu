@@ -190,8 +190,7 @@
             <div class="navbar-item dropdown">
                 <span><i class="fas fa-user-circle"></i> Cashier</span>
                 <div class="dropdown-content">
-<%--                    <a href="#"><i class="fas fa-user"></i> Profile</a>--%>
-                    <a href="login.jsp"><i class="fas fa-sign-out-alt"></i> Logout</a>
+    <a href="<%= request.getContextPath() %>/LogoutServlet">Logout</a>
                 </div>
             </div>
         </div>

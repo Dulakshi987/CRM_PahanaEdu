@@ -8,10 +8,10 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.*;
 import java.io.IOException;
 
-
 @WebServlet("/LoginServlet")
 public class LoginServlet extends HttpServlet {
     private final UserServices userService = new UserServices();
+
 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
@@ -35,5 +35,6 @@ public class LoginServlet extends HttpServlet {
                 response.sendRedirect(request.getContextPath() + "/cashier/cashierDashboard.jsp");
             }
         }
+
     }
 }

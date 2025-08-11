@@ -1,8 +1,6 @@
 <%@ page contentType="text/html;charset=UTF-8" %>
 <%@ page import="com.billsystem.models.User" %>
 
-
-<%--session and cache handling--%>
 <%
     HttpSession sessionObj = request.getSession(false);
 
