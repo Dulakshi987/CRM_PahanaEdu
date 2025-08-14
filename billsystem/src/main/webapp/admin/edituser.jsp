@@ -40,6 +40,8 @@
 <html>
 <head>
     <title>Edit User - PahanaEdu Book Shop</title>
+    <link rel="stylesheet" href="../assets/css/bootstrap.min.css">
+
     <style>
         .form-container {
             background: white;

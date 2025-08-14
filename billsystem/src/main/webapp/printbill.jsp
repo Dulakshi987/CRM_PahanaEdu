@@ -50,9 +50,13 @@
     Customer customer = customerService.getCustomerById(customerId);
 
     // Calculate totals
-    double discounted = Math.max(subtotal - discount, 0);
+// discount is percentage, e.g. 10 for 10%
+    double discountAmount = subtotal * (discount / 100);
+    double discounted = Math.max(subtotal - discountAmount, 0);
+
     double taxAmount = discounted * (tax / 100);
     double grandTotal = discounted + taxAmount;
+
 
     // Format date
     SimpleDateFormat sdf = new SimpleDateFormat("dd MMMM yyyy, hh:mm a");
@@ -238,7 +242,7 @@
         </div>
         <div class="totals-row">
             <span>Discount:</span>
-            <span>-Rs.<%= String.format("%.2f", discount) %></span>
+            <span><%= String.format("%.2f", discount) %>%</span>
         </div>
         <div class="totals-row">
             <span>Tax (<%= tax %>%):</span>

@@ -30,6 +30,8 @@
 <html>
 <head>
     <title>View Customers</title>
+    <link rel="stylesheet" href="../assets/css/bootstrap.min.css">
+
     <style>
         .custom-thead {
             background: linear-gradient(135deg, #e7993c, #d4831f);

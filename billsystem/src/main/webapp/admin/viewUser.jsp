@@ -39,6 +39,8 @@
 <html>
 <head>
   <title>View Users</title>
+  <link rel="stylesheet" href="../assets/css/bootstrap.min.css">
+
   <style>
     .custom-thead {
       background: linear-gradient(135deg, #e7993c, #d4831f);
@@ -76,7 +78,7 @@
     String successMessage = (String) session.getAttribute("successMessage");
     if (successMessage != null) {
   %>
-  <div style="color: green; font-weight: bold; margin-bottom: 20px;">
+  <div class="alert alert-success">
     <%= successMessage %>
   </div>
   <%
@@ -126,7 +128,7 @@
   </div>
 </div>
 
-<script src="assets/js/bootstrap.bundle.min.js"></script>
+<script src="../assets/js/bootstrap.bundle.min.js"></script>
 
 </body>
 </html>

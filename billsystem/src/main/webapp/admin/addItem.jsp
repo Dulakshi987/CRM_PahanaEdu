@@ -29,6 +29,8 @@
 <html>
 <head>
     <title>Add Item - PahanaEdu Book Shop</title>
+    <link rel="stylesheet" href="../assets/css/bootstrap.min.css">
+
     <style>
         /* Same style as your addCustomer.jsp or customize */
         .form-container {
@@ -91,8 +93,12 @@
 
 <div class="form-container">
 
-    <% if ("true".equals(request.getParameter("success"))) { %>
-    <p class="success-msg">Item added successfully!</p>
+    <%-- Success message --%>
+    <% String success = request.getParameter("success"); %>
+    <% if ("true".equals(success)) { %>
+    <div class="alert alert-success">
+       Item Added Successfully.
+    </div>
     <% } %>
 
     <form action="ItemServlet" method="post" class="styled-form">

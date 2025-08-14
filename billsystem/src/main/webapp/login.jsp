@@ -128,12 +128,12 @@
             <div class="error-feedback">Invalid username or password!</div>
             <% } %>
 
-            <div class="message">
-                <%= request.getAttribute("message") != null ? request.getAttribute("message") : "" %>
+
+            <div class="alert alert-success">
+                <%= request.getAttribute("message") != null ? request.getAttribute("message") : "Please Log in using correct user credintials!" %>
             </div>
 
             <h2>Sign In</h2>
-            <%--            <small>Please enter your details</small>--%>
 
             <form method="post" action="login" class="mt-4">
                 <div class="mb-3">
@@ -171,7 +171,7 @@
 <script src="assets/js/bootstrap.bundle.min.js"></script>
 <script src="assets/js/bootstrap.bundle.min.js"></script>
 <script>
-    const text = "Welcome to PahanaEdu Book Shop";
+    const text = "WELCOME TO PAHANA EDU BOOKSHOP";
     const speed = 70;
     let i = 0;
 

@@ -30,6 +30,8 @@
 <html>
 <head>
     <title>View Customers</title>
+    <link rel="stylesheet" href="../assets/css/bootstrap.min.css">
+
     <style>
         .custom-thead {
             background: linear-gradient(135deg, #e7993c, #d4831f);
@@ -120,12 +122,7 @@
                        class="btn btn-sm btn-primary" title="Edit">
                         <i class="fas fa-edit"></i>
                     </a>
-                    <a href="CustomerServlet?action=delete&id=<%= c.getId() %>"
-                       class="btn btn-sm btn-danger"
-                       onclick="return confirm('Are you sure you want to delete this customer?');"
-                       title="Delete">
-                        <i class="fas fa-trash-alt"></i>
-                    </a>
+
                 </td>
             </tr>
             <% } %>
@@ -134,7 +131,7 @@
     </div>
 </div>
 
-<script src="assets/js/bootstrap.bundle.min.js"></script>
+<script src="../assets/js/bootstrap.bundle.min.js"></script>
 <script>
     document.getElementById('searchInput').addEventListener('keyup', function () {
         const filter = this.value.toLowerCase();

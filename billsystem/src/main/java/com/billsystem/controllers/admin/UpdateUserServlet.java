@@ -37,6 +37,8 @@ public class UpdateUserServlet extends HttpServlet {
         }
 
         userService.updateUser(user);
+        request.getSession().setAttribute("successMessage", "User updated successfully!");
+
         response.sendRedirect("UserManagementServlet");
     }
 }

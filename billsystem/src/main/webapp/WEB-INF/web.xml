@@ -15,25 +15,8 @@
         <url-pattern>/login</url-pattern>
     </servlet-mapping>
 
-    <!-- Register Servlet -->
-    <servlet>
-        <servlet-name>RegisterServlet</servlet-name>
-        <servlet-class>com.billsystem.controllers.admin.RegisterServlet</servlet-class>
-    </servlet>
-    <servlet-mapping>
-        <servlet-name>RegisterServlet</servlet-name>
-        <url-pattern>/register</url-pattern>
-    </servlet-mapping>
 
-    <!-- Add Customer Servlet -->
-    <servlet>
-        <servlet-name>CustomerServlet</servlet-name>
-        <servlet-class>com.billsystem.controllers.admin.CustomerServlet</servlet-class>
-    </servlet>
-    <servlet-mapping>
-        <servlet-name>CustomerServlet</servlet-name>
-        <url-pattern>/admin/CustomerServlet</url-pattern>
-    </servlet-mapping>
+
 
     <servlet>
         <servlet-name>ViewCustomersServlet</servlet-name>

@@ -92,8 +92,10 @@ public class SendEmailServlet extends HttpServlet {
 
             itemsHtml.append("</table>");
 
-            // Calculate final amounts
-            double discountedAmount = Math.max(subtotal - discount, 0);
+            // discount is percentage, e.g. 10 for 10%
+            double discountAmount = subtotal * (discount / 100);
+            double discountedAmount = Math.max(subtotal - discountAmount, 0);
+
             double taxAmount = discountedAmount * (taxRate / 100);
             double grandTotal = discountedAmount + taxAmount;
 
@@ -113,7 +115,7 @@ public class SendEmailServlet extends HttpServlet {
                     .append(itemsHtml.toString())
                     .append("<div style='margin-top: 20px; text-align: right;'>")
                     .append("<p><strong>Subtotal: Rs.").append(String.format("%.2f", subtotal)).append("</strong></p>")
-                    .append("<p><strong>Discount: Rs.").append(String.format("%.2f", discount)).append("</strong></p>")
+                    .append("<p><strong>Discount:").append(String.format("%.2f", discount)).append("%</strong></p>")
                     .append("<p><strong>Tax (").append(String.format("%.1f", taxRate)).append("%): Rs.").append(String.format("%.2f", taxAmount)).append("</strong></p>")
                     .append("<h3 style='color: #28a745;'>Grand Total: Rs.").append(String.format("%.2f", grandTotal)).append("</h3>")
                     .append("</div>")

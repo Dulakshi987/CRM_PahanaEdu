@@ -84,7 +84,15 @@
     <div class="register-box">
         <div class="header-text">Create Your Account</div>
 
-        <%-- Error Messages --%>
+        <%-- Success message --%>
+        <% String success = request.getParameter("success"); %>
+        <% if ("true".equals(success)) { %>
+        <div class="alert alert-success">
+            Registration successful! You can now log in.
+        </div>
+        <% } %>
+
+        <%-- Error messages --%>
         <% String error = request.getParameter("error"); %>
         <% if (error != null) { %>
         <div class="alert alert-danger">
@@ -104,7 +112,8 @@
         </div>
         <% } %>
 
-        <form id="registerForm" method="post" action="register">
+
+        <form id="registerForm" method="post" action="${pageContext.request.contextPath}/admin/RegisterServlet">
             <div class="mb-3">
                 <label class="form-label">Username <span class="text-danger">*</span></label>
                 <input type="text" name="username" class="form-control" required

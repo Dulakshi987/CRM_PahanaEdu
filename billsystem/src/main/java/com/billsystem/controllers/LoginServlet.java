@@ -34,7 +34,11 @@ public class LoginServlet extends HttpServlet {
             } else {
                 response.sendRedirect(request.getContextPath() + "/cashier/cashierDashboard.jsp");
             }
+        } else {
+            // Wrong credentials → redirect with error parameter
+            response.sendRedirect(request.getContextPath() + "/login.jsp?error=invalid");
+        }
         }
 
     }
-}
+

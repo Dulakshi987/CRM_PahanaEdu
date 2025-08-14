@@ -34,6 +34,8 @@
 <html>
 <head>
     <title>Pahana Edu | Help </title>
+    <link rel="stylesheet" href="../assets/css/bootstrap.min.css">
+
 </head>
 
 

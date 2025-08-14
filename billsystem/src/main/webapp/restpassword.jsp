@@ -42,9 +42,12 @@
         }
     </style>
 </head>
+
 <body>
 <div class="form-container">
     <h2>Reset Password</h2>
+
+
     <form action="ResetPasswordServlet" method="post">
         <label>Username:</label>
         <input type="text" name="username" required>

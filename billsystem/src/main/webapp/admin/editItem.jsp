@@ -30,6 +30,8 @@
 <html>
 <head>
     <title>Edit Item - PahanaEdu Book Shop</title>
+    <link rel="stylesheet" href="../assets/css/bootstrap.min.css">
+
     <style>
         .form-container {
             background: white;

@@ -1,4 +1,5 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ page import="com.billsystem.models.Customer" %>
 
 <%--session and cache handling--%>
 <%
@@ -12,7 +13,7 @@
 
     //Role mismatch → logout and go to login
     Integer role = (Integer) sessionObj.getAttribute("role");
-    if (role == null || role != 0) { // 0 = admin
+    if (role == null || role != 1) { // 0 = admin
         sessionObj.invalidate(); // end session
         response.sendRedirect(request.getContextPath() + "/login.jsp");
         return;
@@ -24,10 +25,11 @@
     response.setDateHeader("Expires", 0);
 %>
 
+
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Add Customer - PahanaEdu Book Shop</title>
+    <title>Edit Customer - PahanaEdu Book Shop</title>
     <link rel="stylesheet" href="../assets/css/bootstrap.min.css">
 
     <style>
@@ -93,12 +95,9 @@
             margin-top: 15px;
             text-align: center;
         }
-
     </style>
-
 </head>
 <body>
-
 
 <%@ include file="layouts/sidebar.jsp" %>
 <%@ include file="layouts/navbar.jsp" %>
@@ -107,67 +106,71 @@
 
 <div class="content">
     <div class="content-header" style="text-align: center">
-        <h3>Add Customer</h3>
+        <h3>Edit Customer</h3>
     </div>
 
+    <%
+        Customer c = (Customer) request.getAttribute("customer");
+        if (c == null) {
+    %>
+    <p class="success-msg" style="color: red;">Customer not found.</p>
+    <%
+    } else {
+    %>
 
     <div class="form-container">
-        <%-- Success message --%>
-        <% String success = request.getParameter("success"); %>
-        <% if ("true".equals(success)) { %>
-        <div class="alert alert-success">
-            Customer Added Successfully.
-        </div>
-        <% } %>
+        <form action="${pageContext.request.contextPath}/cashier/UpdateCustomerServlet" method="post" class="styled-form">
+            <input type="hidden" name="id" value="<%= c.getId() %>"/>
 
-        <form action="${pageContext.request.contextPath}/admin/CustomerServlet" method="post" class="styled-form">
             <div class="form-group">
                 <label>First Name:</label>
-                <input type="text" name="firstName" required>
+                <input type="text" name="firstName" value="<%= c.getFirstName() %>" required>
             </div>
 
             <div class="form-group">
                 <label>Last Name:</label>
-                <input type="text" name="lastName" required>
+                <input type="text" name="lastName" value="<%= c.getLastName() %>" required>
             </div>
 
             <div class="form-group">
                 <label>Account Number:</label>
-                <input type="text" name="accountNumber" required>
+                <input type="text" name="accountNumber" value="<%= c.getAccountNumber() %>" required>
             </div>
 
             <div class="form-group">
                 <label>NID:</label>
-                <input type="text" name="nid">
+                <input type="text" name="nid" value="<%= c.getNid() %>">
             </div>
 
             <div class="form-group">
                 <label>Address:</label>
-                <input type="text" name="address">
+                <input type="text" name="address" value="<%= c.getAddress() %>">
             </div>
 
             <div class="form-group">
                 <label>Contact Number:</label>
-                <input type="text" name="contactNumber">
+                <input type="text" name="contactNumber" value="<%= c.getContactNumber() %>">
             </div>
 
             <div class="form-group">
                 <label>Emergency Number:</label>
-                <input type="text" name="emergencyNumber">
+                <input type="text" name="emergencyNumber" value="<%= c.getEmergencyNumber() %>">
             </div>
 
             <div class="form-group">
                 <label>Email:</label>
-                <input type="email" name="email">
+                <input type="email" name="email" value="<%= c.getEmail() %>">
             </div>
 
             <div class="form-group">
-                <input type="submit" value="Add Customer" class="submit-btn">
+                <input type="submit" value="Update Customer" class="submit-btn">
             </div>
-
-
         </form>
     </div>
+
+    <%
+        }
+    %>
 </div>
 
 <%@ include file="layouts/footer.jsp" %>
