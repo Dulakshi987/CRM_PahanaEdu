@@ -15,8 +15,8 @@ public class EmailUtil {
     private static final String SMTP_PORT = "587";
 
     // Replace these with your actual Mailtrap credentials
-    private static final String MAILTRAP_USERNAME = "0b32777711b80b";
-    private static final String MAILTRAP_PASSWORD = "005493d367657b";
+    private static final String MAILTRAP_USERNAME = "86d3e089f929ec";
+    private static final String MAILTRAP_PASSWORD = "0fa3d2a6e40738";
     private static final String FROM_EMAIL = "ae0433367@gmail.com";
 
     public static boolean sendEmail(String to, String subject, String content) {

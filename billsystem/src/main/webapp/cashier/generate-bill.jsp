@@ -1,31 +1,6 @@
 <%@ page import="java.util.*, com.billsystem.models.*, com.billsystem.services.*" %>
 <%@ page session="true" %>
 
-
-<%--session and cache handling--%>
-<%
-    HttpSession sessionObj = request.getSession(false);
-
-    // Step 1: Check if logged in
-    if (sessionObj == null || sessionObj.getAttribute("loggedUser") == null) {
-        response.sendRedirect(request.getContextPath() + "/login.jsp");
-        return;
-    }
-
-    // Step 2: Allow only role = 1 (Cashier)
-    Integer role = (Integer) sessionObj.getAttribute("role");
-    if (role == null || role != 1) { // 1 = cashier
-        sessionObj.invalidate(); // destroy session
-        response.sendRedirect(request.getContextPath() + "/login.jsp");
-        return;
-    }
-
-    // Step 3: Prevent browser cache
-    response.setHeader("Cache-Control", "no-cache, no-store, must-revalidate");
-    response.setHeader("Pragma", "no-cache");
-    response.setDateHeader("Expires", 0);
-%>
-
 <%
     ItemService itemService = new ItemService();
     CustomerService customerService = new CustomerService();
@@ -42,6 +17,25 @@
 <%
     String message = (String) session.getAttribute("message");
     String messageType = (String) session.getAttribute("messageType");
+    if ("success".equals(messageType)) {
+%>
+<!-- Success Modal -->
+<div class="modal fade" id="successModal" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content text-center">
+            <div class="modal-body">
+                <h5 style="color: green; font-weight: bold;"><%= message %></h5>
+            </div>
+            <div class="modal-footer justify-content-center">
+                <button type="button" class="btn btn-primary" id="okButton">OK</button>
+            </div>
+        </div>
+    </div>
+</div>
+<%
+        session.removeAttribute("message");
+        session.removeAttribute("messageType");
+    }
 %>
 
 <!DOCTYPE html>
@@ -49,9 +43,15 @@
 <head>
     <meta charset="UTF-8" />
     <title>Create Bill</title>
-    <link href="/assets/css/bootstrap.min.css" rel="stylesheet"/>
+    <link href="../assets/css/bootstrap.min.css" rel="stylesheet"/>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" />
 
     <style>
+        .main-content {
+            margin-left: 280px;
+            padding: 30px;
+        }
+
         .custom-thead {
             background: linear-gradient(135deg, #e7993c, #d4831f);
             color: white;
@@ -74,148 +74,153 @@
         }
 
         .form-section {
-            background-color: #fffaf1;
+            background-color: #f8f9fa;
             border-radius: 10px;
             padding: 20px;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.05);
+            margin-bottom: 20px;
         }
 
-        .form-label {
-            font-weight: 600;
+        .action-buttons .btn {
+            margin-left: 10px;
         }
-
-        h2, h5 {
-            font-weight: bold;
-            color: #d4831f;
-        }
-
     </style>
+
 </head>
 <body>
 
 <%@ include file="layouts/sidebar.jsp" %>
 <%@ include file="layouts/navbar.jsp" %>
 
-<div class="main-content" style="margin-left: 280px; padding: 100px;">
-    <h2 class="mb-4 text-center">Bill Creation</h2>
+<br><br><br><br>
 
-    <% if (message != null) { %>
-    <div class="alert alert-<%= "success".equals(messageType) ? "success" : "danger" %> alert-dismissible fade show" role="alert">
-        <%= message %>
-        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-    </div>
-    <%
-            session.removeAttribute("message");
-            session.removeAttribute("messageType");
-        }
-    %>
+<div class="main-content">
+    <h2 class="text-center mb-4 " style="color: black;">Create Bill</h2>
 
     <!-- Add Item Form -->
-    <form action="${pageContext.request.contextPath}/cashier/AddBillItemServlet" method="post" class="row g-3 mb-4">
-        <div class="col-md-6">
-            <label for="itemId" class="form-label">Select Item</label>
-            <select name="itemId" id="itemId" class="form-select" required>
-                <option value="" disabled selected> Select Item </option>
-                <% for (Item i : items) { %>
-                <option value="<%= i.getItemId() %>">
-                    <%= i.getItemCode() %> - <%= i.getItemName() %> (Rs.<%= String.format("%.2f", i.getPricePerUnit()) %>)
-                </option>
-                <% } %>
-            </select>
-        </div>
+    <div class="form-section">
+        <form action="${pageContext.request.contextPath}/cashier/AddBillItemServlet" method="post" class="row g-3">
+            <div class="col-md-6">
+                <label for="itemId" class="form-label">Select Item</label>
+                <select name="itemId" id="itemId" class="form-select" required>
+                    <option value="" disabled selected>Select Item</option>
+                    <% for (Item i : items) { %>
+                    <option value="<%= i.getItemId() %>">
+                        <%= i.getItemCode() %> - <%= i.getItemName() %> (Rs.<%= String.format("%.2f", i.getPricePerUnit()) %>)
+                    </option>
+                    <% } %>
+                </select>
+            </div>
 
-        <div class="col-md-3">
-            <label for="quantity" class="form-label">Quantity</label>
-            <input type="number" name="quantity" id="quantity" class="form-control" value="1" min="1" required />
-        </div>
+            <div class="col-md-3">
+                <label for="quantity" class="form-label">Quantity</label>
+                <input type="number" name="quantity" id="quantity" class="form-control" value="1" min="1" required />
+            </div>
 
-        <div class="col-md-3 d-flex align-items-end">
-            <button type="submit" class="btn btn-add w-100" style=" background-color: #d4831f;
-            padding: 10px 10px;color: white;">Add Item</button>
-        </div>
-    </form>
+            <div class="col-md-3 d-flex align-items-end">
+                <button type="submit" class="btn btn-primary w-30" style="background-color: #e7993c;">
+                   </i>Add Item
+                </button>
+            </div>
+        </form>
+    </div>
 
     <form action="${pageContext.request.contextPath}/cashier/SaveBillServlet" method="post">
+
         <!-- Bill Items Table -->
         <div class="mt-4">
-            <h6>Bill Items</h6>
-            <table class="table table-bordered table-hover table-custom align-middle" id="billTable">
-                <thead class="custom-thead text-center">
-                <tr>
-                    <th>Item Code</th>
-                    <th>Name</th>
-                    <th>Qty</th>
-                    <th>Unit Price</th>
-                    <th>Total</th>
-                    <th>Remove</th>
-                </tr>
-                </thead>
-                <tbody class="text-center">
-                <%
-                    double grandTotal = 0;
-                    for (BillItem bi : billItems) {
-                        Item item = itemService.getItemById(bi.getItemId());
-                        if (item == null) continue;
-                        double total = bi.getQuantity() * item.getPricePerUnit();
-                        grandTotal += total;
-                %>
-                <tr>
-                    <td><%= item.getItemCode() %></td>
-                    <td><%= item.getItemName() %></td>
-                    <td><%= bi.getQuantity() %></td>
-                    <td><%= String.format("%.2f", item.getPricePerUnit()) %></td>
-                    <td class="rowTotal"><%= String.format("%.2f", total) %></td>
-                    <td>
-                        <button type="button" class="btn btn-danger btn-sm" onclick="removeRow(this)">Remove</button>
-                    </td>
-                </tr>
-                <!-- Hidden Inputs -->
-                <input type="hidden" name="itemId[]" value="<%= item.getItemId() %>" />
-                <input type="hidden" name="quantity[]" value="<%= bi.getQuantity() %>" />
-                <input type="hidden" name="itemPrice[]" value="<%= item.getPricePerUnit() %>" />
-                <input type="hidden" name="totalPrice[]" value="<%= total %>" />
-                <% } %>
-                </tbody>
-                <tfoot>
-                <tr>
-                    <th colspan="4" class="text-end">Grand Total</th>
-                    <th id="grandTotalFooter">Rs.<%= String.format("%.2f", grandTotal) %></th>
-                    <th></th>
-                </tr>
-                </tfoot>
-            </table>
+            <h5>Bill Items</h5>
+            <div class="table-responsive">
+                <table class="table table-bordered table-hover table-custom" id="billTable">
+                    <thead class="custom-thead">
+                    <tr>
+                        <th>Item Code</th>
+                        <th>Name</th>
+                        <th>Qty</th>
+                        <th>Unit Price</th>
+                        <th>Total</th>
+                        <th>Remove</th>
+                    </tr>
+                    </thead>
+
+                    <tbody>
+                    <%
+                        double grandTotal = 0;
+                        for (BillItem bi : billItems) {
+                            Item item = itemService.getItemById(bi.getItemId());
+                            if (item == null) continue;
+                            double total = bi.getQuantity() * item.getPricePerUnit();
+                            grandTotal += total;
+                    %>
+                    <tr>
+                        <td><%= item.getItemCode() %></td>
+                        <td><%= item.getItemName() %></td>
+                        <td><%= bi.getQuantity() %></td>
+                        <td><%= String.format("%.2f", item.getPricePerUnit()) %></td>
+                        <td class="rowTotal"><%= String.format("%.2f", total) %></td>
+                        <td>
+                            <button type="button" class="btn btn-danger btn-sm" onclick="removeRow(this)">
+                                <i class="fas fa-trash-alt"></i>
+                            </button>
+                        </td>
+                    </tr>
+
+                    <!-- Hidden inputs for form submission -->
+                    <input type="hidden" name="itemId[]" value="<%= item.getItemId() %>" />
+                    <input type="hidden" name="quantity[]" value="<%= bi.getQuantity() %>" />
+                    <input type="hidden" name="itemPrice[]" value="<%= item.getPricePerUnit() %>" />
+                    <input type="hidden" name="totalPrice[]" value="<%= total %>" />
+                    <input type="hidden" name="grandTotal" id="grandTotalHidden" value="0.0" />
+
+                    <%
+                        } %>
+                    </tbody>
+                    <tfoot>
+                    <tr>
+                        <th colspan="4" class="text-end">Grand Total</th>
+                        <th id="grandTotalFooter">Rs.<%= String.format("%.2f", grandTotal) %></th>
+                        <th></th>
+                    </tr>
+                    </tfoot>
+                </table>
+            </div>
         </div>
 
         <!-- Calculation Section -->
-        <div class="form-section mt-4">
+        <div class="form-section">
             <div class="row g-3">
+
                 <div class="col-md-3">
                     <label class="form-label">Subtotal</label>
                     <input type="text" class="form-control" id="subtotal" readonly />
                 </div>
+
                 <div class="col-md-3">
-                    <label class="form-label">Discount</label>
+                    <label class="form-label">Discount (%)</label>
                     <input type="number" class="form-control" name="discount" id="discount" value="0" min="0" oninput="calculateTotal()" />
                 </div>
+
                 <div class="col-md-3">
                     <label class="form-label">Tax (%)</label>
-                    <input type="number" class="form-control" name="tax" id="tax" value="8" min="0" oninput="calculateTotal()" />
+                    <input type="number" class="form-control" name="tax" id="tax" value="0" min="0" oninput="calculateTotal()" />
                 </div>
+
                 <div class="col-md-3">
                     <label class="form-label">Total</label>
                     <input type="text" class="form-control" id="grandTotal" readonly />
+                    <!-- Hidden field for backend -->
                     <input type="hidden" name="grandTotal" id="grandTotalHidden" value="0.0" />
                 </div>
+
             </div>
         </div>
 
-        <!-- Customer Selection -->
-        <div class="form-section mt-4">
+        <!-- Customer Select -->
+        <div class="form-section">
             <div class="row g-3 align-items-center">
                 <div class="col-md-6">
                     <label for="customerSelect" class="form-label">Select Customer</label>
                     <select id="customerSelect" class="form-select" required>
-                        <option selected disabled> Select Customer </option>
+                        <option selected disabled>Select Customer</option>
                         <% for (Customer c : customers) { %>
                         <option value="<%= c.getId() %>" data-email="<%= c.getEmail() %>">
                             <%= c.getFirstName() %> <%= c.getLastName() %> - <%= c.getAccountNumber() %>
@@ -231,28 +236,34 @@
             </div>
         </div>
 
-        <!-- Payment Method -->
-        <div class="form-section mt-4">
-            <div class="col-md-6">
+        <!-- Payment method -->
+        <div class="form-section">
+            <div class="form-group">
+                <div class="col-md-6">
                 <label for="paymentMethod">Payment Method</label>
                 <select class="form-control" name="paymentMethod" id="paymentMethod" required>
-                    <option value=""> Select Payment Method </option>
+                    <option value="">Select Payment Method</option>
                     <option value="cash">Cash</option>
                     <option value="check">Check</option>
                     <option value="card">Card</option>
                 </select>
             </div>
+            </div>
         </div>
 
         <!-- Save & Print Buttons -->
-        <div class="text-end mt-4">
-
-            <button type="submit" class="btn btn-success" onclick="sendInvoiceEmail()">send email</button>
-            <button type="submit" class="btn btn-success"  onclick="openPrintPreview()"> Save and print</button>
-
+        <div class="text-end mt-4 action-buttons">
+            <button type="submit" class="btn btn-success" onclick="sendInvoiceEmail()">
+                <i class="fas fa-envelope me-2"></i>Send Email
+            </button>
+            <button type="submit" class="btn btn-primary" onclick="openPrintPreview()">
+                <i class="fas fa-print me-2"></i>Save and Print
+            </button>
         </div>
     </form>
 </div>
+
+<%@ include file="layouts/footer.jsp" %>
 
 <script>
     // Update customer email and hidden field
@@ -263,9 +274,7 @@
         document.getElementById("customerEmail").value = email;
         document.getElementById("customerIdHidden").value = customerId;
         document.getElementById("customerEmailHidden").value = email;
-
     });
-
 
     function removeRow(button) {
         const row = button.closest("tr");
@@ -285,15 +294,19 @@
 
         document.getElementById("subtotal").value = subtotal.toFixed(2);
 
-        const discount = parseFloat(document.getElementById("discount").value) || 0;
-        const tax = parseFloat(document.getElementById("tax").value) || 0;
+        // Get discount and tax percentages
+        const discountPercent = parseFloat(document.getElementById("discount").value) || 0;
+        const taxPercent = parseFloat(document.getElementById("tax").value) || 0;
 
-        const discounted = Math.max(subtotal - discount, 0);
-        const taxAmount = discounted * (tax / 100);
+        // Calculate discount as percentage
+        const discountAmount = subtotal * (discountPercent / 100);
+
+        const discounted = Math.max(subtotal - discountAmount, 0);
+        const taxAmount = discounted * (taxPercent / 100);
         const total = discounted + taxAmount;
 
         document.getElementById("grandTotal").value = total.toFixed(2);
-        document.getElementById("grandTotalFooter").innerText = "$" + total.toFixed(2);
+        document.getElementById("grandTotalFooter").innerText = "Rs." + total.toFixed(2);
         document.getElementById("grandTotalHidden").value = total.toFixed(2);
     }
 
@@ -383,6 +396,19 @@
             });
     }
 
+    window.onload = function () {
+        var modal = new bootstrap.Modal(document.getElementById('successModal'));
+        modal.show();
+
+        document.getElementById('okButton').addEventListener('click', function () {
+            // Clear the bill table
+            document.querySelectorAll("#billTable tbody tr").forEach(row => row.remove());
+            document.getElementById("grandTotalFooter").innerText = "Rs.0.00";
+
+            // Close modal
+            modal.hide();
+        });
+    }
 </script>
 </body>
 </html>
