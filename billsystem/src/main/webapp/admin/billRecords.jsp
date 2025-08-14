@@ -26,7 +26,7 @@
 
     //Role mismatch → logout and go to login
     Integer role = (Integer) sessionObj.getAttribute("role");
-    if (role == null || role != 0) { // 0 = admin
+    if (role == null || role != 0) { // 0 = cashier
         sessionObj.invalidate(); // end session
         response.sendRedirect(request.getContextPath() + "/login.jsp");
         return;
@@ -44,7 +44,7 @@
 <head>
     <meta charset="UTF-8">
     <title>Bill Records - PahanaEdu Book Shop</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="../assets/css/bootstrap.min.css" rel="stylesheet">
     <style>
         body {
             margin: 0;
@@ -117,7 +117,7 @@
                 <th>Date & Time</th>
                 <th>Total</th>
                 <th>Payment</th>
-                <th>PDF</th>
+                <th>View</th>
             </tr>
             </thead>
             <tbody>
@@ -130,10 +130,13 @@
                 <td><%= customer != null ? customer.getFirstName() : "Unknown" %></td>
                 <td><%= customer != null ? customer.getAccountNumber() : "-" %></td>
                 <td><%= b.getBillDate() != null ? sdf.format(b.getBillDate()) : "-" %></td>
-                <td>LKR <%= String.format("%.2f", b.getGrandTotal()) %></td>
+                <td>Rs. <%= String.format("%.2f", b.getGrandTotal()) %></td>
                 <td><%= b.getPaymentMethod() != null ? b.getPaymentMethod() : "N/A" %></td>
                 <td>
-                    <a href="DownloadBillServlet?billId=<%= b.getBillId() %>" class="btn btn-outline-primary btn-sm">Download</a>
+
+                    <a href="../printinvoice.jsp?billId=<%= b.getBillId() %>"
+                       target="_blank"
+                       class="btn btn-outline-success btn-sm" style="background-color: #e7993c; color: black;">View</a>
                 </td>
             </tr>
             <% }

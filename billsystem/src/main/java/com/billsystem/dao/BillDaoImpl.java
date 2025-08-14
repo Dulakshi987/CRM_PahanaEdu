@@ -153,4 +153,56 @@ public class BillDaoImpl implements BillDao {
         }
         return null;
     }
+
+    @Override
+    public Bill getBillById(int billId) {
+        Bill bill = null;
+        String sql = "SELECT * FROM bill WHERE bill_id = ?";
+        try (Connection con = DBConnection.getConnection();
+             PreparedStatement ps = con.prepareStatement(sql)) {
+            ps.setInt(1, billId);
+            try (ResultSet rs = ps.executeQuery()) {
+                if (rs.next()) {
+                    bill = new Bill();
+                    bill.setBillId(rs.getInt("bill_id"));
+                    bill.setCustomerId(rs.getInt("customer_id"));
+                    bill.setBillDate(rs.getTimestamp("bill_date"));
+                    bill.setTotalAmount(rs.getDouble("total_amount"));
+                    bill.setDiscount(rs.getDouble("discount"));
+                    bill.setTax(rs.getDouble("tax"));
+                    bill.setGrandTotal(rs.getDouble("grand_total"));
+                    bill.setPaymentMethod(rs.getString("payment_method"));
+
+                }
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return bill;
+    }
+
+    @Override
+    public List<BillItem> getBillItemsByBillId(int billId) {
+        List<BillItem> items = new ArrayList<>();
+        String sql = "SELECT * FROM bill_item WHERE bill_id = ?";
+        try (Connection con = DBConnection.getConnection();
+             PreparedStatement ps = con.prepareStatement(sql)) {
+            ps.setInt(1, billId);
+            try (ResultSet rs = ps.executeQuery()) {
+                while (rs.next()) {
+                    BillItem item = new BillItem();
+                    item.setBillId(rs.getInt("bill_id"));
+                    item.setItemId(rs.getInt("item_id"));
+                    item.setQuantity(rs.getInt("quantity"));
+                    item.setItemPrice(rs.getDouble("item_price"));
+                    item.setTotalPrice(rs.getDouble("total_price"));
+                    items.add(item);
+                }
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return items;
+    }
+
 }

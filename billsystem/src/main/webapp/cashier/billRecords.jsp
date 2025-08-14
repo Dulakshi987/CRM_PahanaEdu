@@ -6,7 +6,7 @@
   To change this template use File | Settings | File Templates.
 --%>
 <%@ page import="java.util.*, java.text.SimpleDateFormat" %>
-<%@ page import="com.billsystem.models.*, com.billsystem.services.*, com.billsystem.services.impl.*" %>
+<%@ page import="com.billsystem.models.*, com.billsystem.services.*, com.billsystem.services.*" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%
     List<Bill> bills = (List<Bill>) request.getAttribute("bills");
@@ -18,34 +18,32 @@
 <%
     HttpSession sessionObj = request.getSession(false);
 
-    // Step 1: Check if logged in
+    //Not logged in → go to login
     if (sessionObj == null || sessionObj.getAttribute("loggedUser") == null) {
         response.sendRedirect(request.getContextPath() + "/login.jsp");
         return;
     }
 
-    // Step 2: Allow only role = 1 (Cashier)
+    //Role mismatch → logout and go to login
     Integer role = (Integer) sessionObj.getAttribute("role");
-    if (role == null || role != 1) { // 1 = cashier
-        sessionObj.invalidate(); // destroy session
+    if (role == null || role != 1) { // 1 = admin
+        sessionObj.invalidate(); // end session
         response.sendRedirect(request.getContextPath() + "/login.jsp");
         return;
     }
 
-    // Step 3: Prevent browser cache
+    //Prevent browser cache (so back button won't reopen restricted pages)
     response.setHeader("Cache-Control", "no-cache, no-store, must-revalidate");
     response.setHeader("Pragma", "no-cache");
     response.setDateHeader("Expires", 0);
 %>
-
-
 
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <title>Bill Records - PahanaEdu Book Shop</title>
-    <link href="/assets/css/bootstrap.min.css" rel="stylesheet">
+    <link href="../assets/css/bootstrap.min.css" rel="stylesheet">
     <style>
         body {
             margin: 0;
@@ -118,7 +116,7 @@
                 <th>Date & Time</th>
                 <th>Total</th>
                 <th>Payment</th>
-                <th>PDF</th>
+                <th>View</th>
             </tr>
             </thead>
             <tbody>
@@ -131,10 +129,13 @@
                 <td><%= customer != null ? customer.getFirstName() : "Unknown" %></td>
                 <td><%= customer != null ? customer.getAccountNumber() : "-" %></td>
                 <td><%= b.getBillDate() != null ? sdf.format(b.getBillDate()) : "-" %></td>
-                <td>LKR <%= String.format("%.2f", b.getGrandTotal()) %></td>
+                <td>Rs. <%= String.format("%.2f", b.getGrandTotal()) %></td>
                 <td><%= b.getPaymentMethod() != null ? b.getPaymentMethod() : "N/A" %></td>
                 <td>
-                    <a href="DownloadBillServlet?billId=<%= b.getBillId() %>" class="btn btn-outline-primary btn-sm">Download</a>
+
+                    <a href="../printinvoice.jsp?billId=<%= b.getBillId() %>"
+                       target="_blank"
+                       class="btn btn-outline-success btn-sm" style="background-color: #e7993c; color: black;">View</a>
                 </td>
             </tr>
             <% }
