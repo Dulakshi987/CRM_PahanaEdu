@@ -444,87 +444,16 @@
 <body>
 <%@ include file="layouts/navbar.jsp" %>
 <%@ include file="layouts/sidebar.jsp" %>
-<!-- Mobile Header -->
-<%--<div class="mobile-header">--%>
-<%--    <h5 class="navbar-brand">--%>
-<%--        <i class="fas fa-book"></i> PahanaEdu Books--%>
-<%--    </h5>--%>
-<%--    <button class="mobile-toggle" onclick="toggleSidebar()">--%>
-<%--        <i class="fas fa-bars"></i>--%>
-<%--    </button>--%>
-<%--</div>--%>
 
-<!-- Sidebar Overlay -->
-<%--<div class="sidebar-overlay" onclick="closeSidebar()"></div>--%>
-
-<%--<div class="sidebar" id="sidebar">--%>
-<%--    <div class="sidebar-header">--%>
-<%--        <h4>--%>
-<%--            <i class="fas fa-book"></i>--%>
-<%--            PahanaEdu Books--%>
-<%--        </h4>--%>
-<%--    </div>--%>
-
-<%--    <div class="sidebar-menu">--%>
-<%--        <a href="adminDashboard.jsp" class="active">--%>
-<%--            <i class="fas fa-tachometer-alt"></i>--%>
-<%--            Dashboard--%>
-<%--        </a>--%>
-<%--        <a href="#">--%>
-<%--            <i class="fas fa-user-shield"></i>--%>
-<%--            Admin Details--%>
-<%--        </a>--%>
-<%--        <a href="#">--%>
-<%--            <i class="fas fa-cash-register"></i>--%>
-<%--            Cashier Details--%>
-<%--        </a>--%>
-<%--        <a href="addCustomer.jsp">--%>
-<%--            <i class="fas fa-users"></i>--%>
-<%--            Add Customer--%>
-<%--        </a>--%>
-<%--        <a href="viewCustomer.jsp">--%>
-<%--            <i class="fas fa-users"></i>--%>
-<%--            Customer Details--%>
-<%--        </a>--%>
-<%--        <a href="addBook.jsp">--%>
-<%--            <i class="fas fa-plus-circle"></i>--%>
-<%--            Add Book Item--%>
-<%--        </a>--%>
-<%--        <a href="#">--%>
-<%--            <i class="fas fa-book-open"></i>--%>
-<%--            Manage Book Item--%>
-<%--        </a>--%>
-<%--        <a href="#">--%>
-<%--            <i class="fas fa-receipt"></i>--%>
-<%--            Bill System--%>
-<%--        </a>--%>
-<%--        <a href="#">--%>
-<%--            <i class="fas fa-print"></i>--%>
-<%--            View / Print Bills--%>
-<%--        </a>--%>
-<%--    </div>--%>
-
-<%--    <div class="sidebar-footer">--%>
-<%--        <div class="user-info">--%>
-<%--            <i class="fas fa-user"></i>--%>
-<%--            Logged in as: <%= user.getUsername() %>--%>
-<%--        </div>--%>
-<%--        <a href="login.jsp" class="logout-btn">--%>
-<%--            <i class="fas fa-sign-out-alt"></i>--%>
-<%--            Logout--%>
-<%--        </a>--%>
-<%--    </div>--%>
-<%--</div>--%>
 
 <br><br><br>
 <div class="content">
+
     <div class="container-fluid">
         <div class="row">
             <div class="col-12">
                 <div class="content-header">
                     <h3>Admin Dashboard</h3>
-
-
                 </div>
             </div>
         </div>
@@ -535,15 +464,14 @@
                 <div class="card-box status-total">
                     <div class="card-content">
                         <div class="card-info">
-                            <h5>Total Admins</h5>
-                            <div class="number">7</div>
+                            <h5>Add Users</h5>
                         </div>
                         <div class="card-icon">
                             <i class="fas fa-user-shield"></i>
                         </div>
                     </div>
                     <div class="card-footer">
-                        <a href="#">
+                        <a href="register.jsp">
                             View Details <i class="fas fa-arrow-right"></i>
                         </a>
                     </div>
@@ -554,15 +482,33 @@
                 <div class="card-box status-new">
                     <div class="card-content">
                         <div class="card-info">
-                            <h5>Total Cashiers</h5>
-                            <div class="number">3</div>
+                            <h5>Total Users</h5>
+
                         </div>
                         <div class="card-icon">
                             <i class="fas fa-cash-register"></i>
                         </div>
                     </div>
                     <div class="card-footer">
-                        <a href="#">
+                        <a href="${pageContext.request.contextPath}/admin/UserManagementServlet">
+                            View Details <i class="fas fa-arrow-right"></i>
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-xl-3 col-lg-4 col-md-6 col-sm-6 col-12 mb-4">
+                <div class="card-box status-total">
+                    <div class="card-content">
+                        <div class="card-info">
+                            <h5>Add Customers</h5>
+                        </div>
+                        <div class="card-icon">
+                            <i class="fas fa-user-shield"></i>
+                        </div>
+                    </div>
+                    <div class="card-footer">
+                        <a href="addCustomer.jsp">
                             View Details <i class="fas fa-arrow-right"></i>
                         </a>
                     </div>
@@ -574,14 +520,13 @@
                     <div class="card-content">
                         <div class="card-info">
                             <h5>Total Customers</h5>
-                            <div class="number">0</div>
                         </div>
                         <div class="card-icon">
                             <i class="fas fa-users"></i>
                         </div>
                     </div>
                     <div class="card-footer">
-                        <a href="#">
+                        <a href="${pageContext.request.contextPath}/admin/ViewCustomerServlet">
                             View Tasks <i class="fas fa-arrow-right"></i>
                         </a>
                     </div>
@@ -592,15 +537,14 @@
                 <div class="card-box status-dispatched">
                     <div class="card-content">
                         <div class="card-info">
-                            <h5>Total Books</h5>
-                            <div class="number">1</div>
+                            <h5>Add Items</h5>
                         </div>
                         <div class="card-icon">
                             <i class="fas fa-book"></i>
                         </div>
                     </div>
                     <div class="card-footer">
-                        <a href="#">
+                        <a href="addItem.jsp">
                             View Requests <i class="fas fa-arrow-right"></i>
                         </a>
                     </div>
@@ -611,15 +555,14 @@
                 <div class="card-box status-dispatched">
                     <div class="card-content">
                         <div class="card-info">
-                            <h5>Total Cancel Books</h5>
-                            <div class="number">1</div>
+                            <h5>Total Items</h5>
                         </div>
                         <div class="card-icon">
                             <i class="fas fa-book-dead"></i>
                         </div>
                     </div>
                     <div class="card-footer">
-                        <a href="#">
+                        <a href="${pageContext.request.contextPath}/admin/ViewItemsServlet">
                             View Requests <i class="fas fa-arrow-right"></i>
                         </a>
                     </div>
@@ -631,14 +574,13 @@
                     <div class="card-content">
                         <div class="card-info">
                             <h5>Total Bills</h5>
-                            <div class="number">0</div>
                         </div>
                         <div class="card-icon">
                             <i class="fas fa-file-invoice-dollar"></i>
                         </div>
                     </div>
                     <div class="card-footer">
-                        <a href="#">
+                        <a href="${pageContext.request.contextPath}/admin/ViewBillServlet">
                             View Details <i class="fas fa-arrow-right"></i>
                         </a>
                     </div>
@@ -649,39 +591,20 @@
                 <div class="card-box status-delivery">
                     <div class="card-content">
                         <div class="card-info">
-                            <h5>Total Email Bills</h5>
-                            <div class="number">0</div>
+                            <h5>Help Section</h5>
                         </div>
                         <div class="card-icon">
                             <i class="fas fa-envelope-open-text"></i>
                         </div>
                     </div>
                     <div class="card-footer">
-                        <a href="#">
+                        <a href="help.jsp">
                             View Details <i class="fas fa-arrow-right"></i>
                         </a>
                     </div>
                 </div>
             </div>
 
-            <div class="col-xl-3 col-lg-4 col-md-6 col-sm-6 col-12 mb-4">
-                <div class="card-box status-users">
-                    <div class="card-content">
-                        <div class="card-info">
-                            <h5>Total Cancel Bills</h5>
-                            <div class="number">2</div>
-                        </div>
-                        <div class="card-icon">
-                            <i class="fas fa-file-invoice"></i>
-                        </div>
-                    </div>
-                    <div class="card-footer">
-                        <a href="#">
-                            View Requests <i class="fas fa-arrow-right"></i>
-                        </a>
-                    </div>
-                </div>
-            </div>
 
         </div>
     </div>
