@@ -134,7 +134,7 @@
   </div>
 </div>
 
-<script src="assets/js/bootstrap.bundle.min.js"></script>
+<script src="../assets/js/bootstrap.bundle.min.js"></script>
 <script>
   document.getElementById('searchInput').addEventListener('keyup', function () {
     const filter = this.value.toLowerCase();

@@ -15,13 +15,10 @@ public class Bill {
     private List<BillItem> items;
 
 
-
-
     // Getters and Setters
     public int getBillId() {
         return billId;
     }
-
     public void setBillId(int billId) {
         this.billId = billId;
     }
@@ -29,7 +26,6 @@ public class Bill {
     public int getCustomerId() {
         return customerId;
     }
-
     public void setCustomerId(int customerId) {
         this.customerId = customerId;
     }
@@ -37,7 +33,6 @@ public class Bill {
     public double getTotalAmount() {
         return totalAmount;
     }
-
     public void setTotalAmount(double totalAmount) {
         this.totalAmount = totalAmount;
     }
@@ -45,7 +40,6 @@ public class Bill {
     public double getDiscount() {
         return discount;
     }
-
     public void setDiscount(double discount) {
         this.discount = discount;
     }
@@ -53,7 +47,6 @@ public class Bill {
     public double getTax() {
         return tax;
     }
-
     public void setTax(double tax) {
         this.tax = tax;
     }
@@ -61,7 +54,6 @@ public class Bill {
     public double getGrandTotal() {
         return grandTotal;
     }
-
     public void setGrandTotal(double grandTotal) {
         this.grandTotal = grandTotal;
     }
@@ -69,16 +61,13 @@ public class Bill {
     public Timestamp getBillDate() {
         return billDate;
     }
-
     public void setBillDate(Timestamp billDate) {this.billDate = billDate;}
 
     public List<BillItem> getItems() {return items;}
-
     public void setItems(List<BillItem> items) {
         this.items = items;
     }
 
     public String getPaymentMethod() {return paymentMethod;}
-
     public void setPaymentMethod(String paymentMethod) {this.paymentMethod = paymentMethod;}
 }

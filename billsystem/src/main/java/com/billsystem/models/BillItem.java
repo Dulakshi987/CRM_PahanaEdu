@@ -12,7 +12,6 @@ public class BillItem {
     public int getId() {
         return id;
     }
-
     public void setId(int id) {
         this.id = id;
     }
@@ -20,7 +19,6 @@ public class BillItem {
     public int getBillId() {
         return billId;
     }
-
     public void setBillId(int billId) {
         this.billId = billId;
     }
@@ -28,7 +26,6 @@ public class BillItem {
     public int getItemId() {
         return itemId;
     }
-
     public void setItemId(int itemId) {
         this.itemId = itemId;
     }
@@ -36,7 +33,6 @@ public class BillItem {
     public int getQuantity() {
         return quantity;
     }
-
     public void setQuantity(int quantity) {
         this.quantity = quantity;
     }
@@ -44,7 +40,6 @@ public class BillItem {
     public double getTotalPrice() {
         return totalPrice;
     }
-
     public void setTotalPrice(double totalPrice) {
         this.totalPrice = totalPrice;
     }
@@ -52,7 +47,6 @@ public class BillItem {
     public double getItemPrice() {
         return itemPrice;
     }
-
     public void setItemPrice(double itemPrice) {
         this.itemPrice = itemPrice;
     }

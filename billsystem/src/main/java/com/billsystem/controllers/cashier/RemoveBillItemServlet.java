@@ -16,6 +16,7 @@ public class RemoveBillItemServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         String itemIdStr = req.getParameter("itemId");
+
         if (itemIdStr != null) {
             int itemId = Integer.parseInt(itemIdStr);
             HttpSession session = req.getSession();

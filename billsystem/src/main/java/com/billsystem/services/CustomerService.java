@@ -26,6 +26,7 @@ public class CustomerService {
     public void updateCustomer(Customer customer) {
         customerDao.updateCustomer(customer);
     }
+
     public Customer getCustomerById(int id) {
         return customerDao.getCustomerById(id);
     }

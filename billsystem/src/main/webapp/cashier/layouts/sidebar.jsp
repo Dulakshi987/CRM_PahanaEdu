@@ -188,7 +188,6 @@
         <a href="${pageContext.request.contextPath}/cashier/generate-bill.jsp"><i class="fas fa-file-invoice-dollar"></i> Generate Bill</a>
         <a href="${pageContext.request.contextPath}/cashier/ViewBillServlet"><i class="fas fa-file-invoice-dollar"></i>View Bills</a>
         <a href="help.jsp"><i class="fas fa-plus-circle"></i> Help Section</a>
-
     </div>
 
 

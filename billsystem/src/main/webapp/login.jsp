@@ -185,7 +185,5 @@
 
     window.onload = typeWriter;
 </script>
-</body>
 </html>
 
-</html>

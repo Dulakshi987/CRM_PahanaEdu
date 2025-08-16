@@ -25,7 +25,6 @@ public class ItemService {
         return itemDao.updateItem(item);
     }
 
-
     public void deleteItem(int itemId) {
         itemDao.deleteItem(itemId);
     }

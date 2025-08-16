@@ -15,9 +15,7 @@
         <url-pattern>/login</url-pattern>
     </servlet-mapping>
 
-
-
-
+    <!-- View Customer Servlet -->
     <servlet>
         <servlet-name>ViewCustomersServlet</servlet-name>
         <servlet-class>com.billsystem.controllers.admin.ViewCustomerServlet</servlet-class>

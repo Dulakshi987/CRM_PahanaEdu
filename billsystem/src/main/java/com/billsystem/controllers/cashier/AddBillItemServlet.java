@@ -33,7 +33,7 @@ public class AddBillItemServlet extends HttpServlet {
         int quantity = Integer.parseInt(qtyStr);
         if (quantity < 1) quantity = 1;
 
-        // Get the item
+        // Get the item via itemservice
         Item item = itemService.getItemById(itemId);
         if (item == null) {
             resp.sendRedirect("generate-bill.jsp");

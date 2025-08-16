@@ -16,9 +16,6 @@ public class UserDao {
         try (Connection conn = DBConnection.getConnection();
              PreparedStatement ps = conn.prepareStatement(sql)) {
 
-            // Hash the password for comparison
-//            String hashedPassword = HashPassword.hashPassword(password);
-
             //  Debugging: print inputs
             System.out.println(" Login Attempt");
             System.out.println("Username: " + username);
@@ -137,8 +134,6 @@ public class UserDao {
             e.printStackTrace();
         }
     }
-
-
 
     public boolean updatePasswordByUsername(String username, String newPassword) {
         try (Connection conn = DBConnection.getConnection()) {

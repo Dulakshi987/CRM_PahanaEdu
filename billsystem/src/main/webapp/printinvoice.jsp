@@ -197,10 +197,12 @@
             <span>Discount:</span>
             <span><%= String.format("%.2f", bill.getDiscount()) %>%</span>
         </div>
+
         <div class="totals-row">
             <span>Tax:</span>
             <span><%= String.format("%.2f", bill.getTax()) %>%</span>
         </div>
+
         <div class="totals-row grand-total">
             <span>Grand Total:</span>
             <span>Rs.<%= String.format("%.2f", bill.getGrandTotal()) %></span>
@@ -218,6 +220,7 @@
         <strong>PahanaEdu Book Shop</strong><br>
         Contact: infopahanaedu@gmail.com | Phone: (+94) 11-564-851
     </div>
+
 </div>
 </body>
 </html>

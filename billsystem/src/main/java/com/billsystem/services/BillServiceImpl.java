@@ -15,6 +15,7 @@ public class BillServiceImpl implements BillService {
     public boolean saveBillWithItems(Bill bill) {
         return billDao.saveBillWithItems(bill);
     }
+
     @Override
     public List<Bill> getAllBills() {
         return billDao.getAllBills();

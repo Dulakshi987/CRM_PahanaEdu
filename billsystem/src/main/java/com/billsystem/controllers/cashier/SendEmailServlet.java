@@ -124,7 +124,7 @@ public class SendEmailServlet extends HttpServlet {
                     .append("</div>")
                     .append("</div>");
 
-            // Test email configuration first (optional - remove in production)
+            // Test email configuration first
             System.out.println("Testing email configuration...");
             if (!EmailUtil.testEmailConfiguration()) {
                 response.getWriter().write("Email configuration test failed. Please check SMTP settings and credentials.");

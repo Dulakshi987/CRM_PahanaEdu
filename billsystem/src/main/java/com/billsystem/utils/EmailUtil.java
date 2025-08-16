@@ -85,6 +85,7 @@ public class EmailUtil {
             System.err.println("Mailtrap Email Error: " + e.getMessage());
             e.printStackTrace();
             return false;
+
         } catch (Exception e) {
             logger.log(Level.SEVERE, "Unexpected error while sending email via Mailtrap to " + to + ": " + e.getMessage(), e);
             System.err.println("Unexpected Mailtrap Error: " + e.getMessage());
