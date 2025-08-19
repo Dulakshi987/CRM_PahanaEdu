@@ -21,15 +21,28 @@ public class UserManagementServlet extends HttpServlet {
 
         if ("delete".equals(action)) {
             int id = Integer.parseInt(request.getParameter("id"));
-            userService.deleteUserById(id);
 
-            // Set success message in session
-            HttpSession session = request.getSession();
-            session.setAttribute("successMessage", "User deleted successfully!");
+            // Fetch the actual user by ID
+            User user = userService.getUserById(id);
 
-            // Redirect to prevent form resubmission
+            if (user != null) {
+                // Allow deleting Admin (0) or Cashier (1)
+                if (user.getUsertype() == 0 || user.getUsertype() == 1) {
+                    userService.deleteUserById(user.getId()); // <-- delete by exact ID
+                    HttpSession session = request.getSession();
+                    session.setAttribute("successMessage",
+                            "User (" + user.getUsername() + ") deleted successfully!");
+                } else {
+                    HttpSession session = request.getSession();
+                    session.setAttribute("errorMessage", "This user type cannot be deleted!");
+                }
+            } else {
+                HttpSession session = request.getSession();
+                session.setAttribute("errorMessage", "User not found!");
+            }
+
             response.sendRedirect("UserManagementServlet");
-            return; // Important: stop further processing
+            return;
         }
 
 

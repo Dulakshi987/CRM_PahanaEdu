@@ -100,13 +100,14 @@
     <div class="form-section">
         <form action="${pageContext.request.contextPath}/cashier/AddBillItemServlet" method="post" class="row g-3">
             <div class="col-md-6">
-                <label for="itemId" class="form-label">Select Item</label>
                 <select name="itemId" id="itemId" class="form-select" required>
                     <option value="" disabled selected>Select Item</option>
                     <% for (Item i : items) { %>
+                    <% if ("Active".equals(i.getStatus())) { %>
                     <option value="<%= i.getItemId() %>">
-                        <%= i.getItemCode() %> - <%= i.getItemName() %> (Rs.<%= String.format("%.2f", i.getPricePerUnit()) %>)
+                        <%= i.getItemCode() %> - <%= i.getItemName() %> (LKR<%= String.format("%.2f", i.getPricePerUnit()) %>)
                     </option>
+                    <% } %>
                     <% } %>
                 </select>
             </div>

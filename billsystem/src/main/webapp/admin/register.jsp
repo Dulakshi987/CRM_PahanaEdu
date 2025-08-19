@@ -104,11 +104,12 @@
             Invalid user type selected.
             <% break;
                 case "registration_failed": %>
-            Registration failed. Username may already be taken.
+            Registration failed. Username or email may already be taken.
             <% break;
                 default: %>
             An error occurred during registration.
             <% } %>
+
         </div>
         <% } %>
 

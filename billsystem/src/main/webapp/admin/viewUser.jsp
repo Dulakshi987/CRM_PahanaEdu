@@ -114,9 +114,13 @@
         <td><%= (user.getUsertype() == 0) ? "Admin" : "Cashier" %></td>
         <td>
           <a class="btn btn-sm btn-primary" title="Edit" href="EditUserServlet?id=<%= user.getId() %>"> <i class="fas fa-edit"></i></a>
-          <a class="btn btn-sm btn-danger" href="UserManagementServlet?action=delete&id=${user.id}" onclick="return confirm('Are you sure you want to delete this user?')">
+          <a class="btn btn-sm btn-danger"
+             title="Delete"
+             href="UserManagementServlet?action=delete&id=<%= user.getId() %>"
+             onclick="return confirm('Are you sure you want to delete <%= user.getUsername() %>?')">
             <i class="fas fa-trash-alt"></i>
           </a>
+
 
         </td>
       </tr>

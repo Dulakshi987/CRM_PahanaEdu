@@ -34,7 +34,7 @@ public class RegisterServlet extends HttpServlet {
         if (userService.register(user)) {
             response.sendRedirect(request.getContextPath() + "/admin/register.jsp?success=true");
         } else {
-            response.sendRedirect("/admin/register.jsp?error=1");
+            response.sendRedirect(request.getContextPath() + "/admin/register.jsp?error=registration_failed");
         }
     }
 }

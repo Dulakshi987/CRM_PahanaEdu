@@ -185,13 +185,13 @@
     <div class="sidebar-menu">
         <a href="adminDashboard.jsp" class="active"><i class="fas fa-tachometer-alt"></i> Dashboard</a>
         <a href="register.jsp"><i class="fas fa-user-plus"></i> Add Users</a>
-        <a href="${pageContext.request.contextPath}/admin/UserManagementServlet"><i class="fas fa-cash-register"></i> Users Details</a>
-        <a href="addCustomer.jsp"><i class="fas fa-user-plus"></i> Add Customer</a>
-        <a href="${pageContext.request.contextPath}/admin/ViewCustomerServlet"><i class="fas fa-users"></i> Customers Details</a>
-        <a href="addItem.jsp"><i class="fas fa-plus-circle"></i> Add  Item</a>
-        <a href="${pageContext.request.contextPath}/admin/ViewItemsServlet"><i class="fas fa-users"></i>  Manage Item</a>
+        <a href="${pageContext.request.contextPath}/admin/UserManagementServlet"><i class="fas fa-users-cog"></i>Manage Users</a>
+        <a href="addCustomer.jsp"><i class="fas fa-user-tie"></i> Add Customer</a>
+        <a href="${pageContext.request.contextPath}/admin/ViewCustomerServlet"><i class="fas fa-users"></i>Manage Customers</a>
+        <a href="addItem.jsp"><i class="fas fa-box-open"></i> Add  Item</a>
+        <a href="${pageContext.request.contextPath}/admin/ViewItemsServlet"><i class="fas fa-boxes"></i>  Manage Items</a>
         <a href="${pageContext.request.contextPath}/admin/ViewBillServlet"><i class="fas fa-file-invoice-dollar"></i>View Bills</a>
-        <a href="help.jsp"><i class="fas fa-plus-circle"></i> Help Section</a>
+        <a href="help.jsp"><i class="fas fa-question-circle"></i> Help Section</a>
 
     </div>
 

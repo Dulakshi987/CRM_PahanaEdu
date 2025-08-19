@@ -172,7 +172,6 @@ public class BillDaoImpl implements BillDao {
                     bill.setTax(rs.getDouble("tax"));
                     bill.setGrandTotal(rs.getDouble("grand_total"));
                     bill.setPaymentMethod(rs.getString("payment_method"));
-
                 }
             }
         } catch (Exception e) {
