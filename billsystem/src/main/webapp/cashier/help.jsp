@@ -106,13 +106,9 @@
         </ul>
     </div>
 
-    <div class="help-section">
-        <h3>3.  Manage Customers</h3>
-        <p>Go to the " View Customers" section  name, email, contact number, and address. Submit the form to view.</p>
-    </div>
 
     <div class="help-section">
-        <h3>4. Generating Bills</h3>
+        <h3>3. Generating Bills</h3>
         <p>To create a bill:</p>
         <ul class="help-list">
             <li>Select a customer by name or account number</li>
@@ -125,12 +121,12 @@
 
 
     <div class="help-section">
-        <h3>5. Logging Out</h3>
+        <h3>4. Logging Out</h3>
         <p>Use the logout button at the top-right corner to safely end your session. This prevents unauthorized access if you leave the computer unattended.</p>
     </div>
 
     <div class="help-section">
-        <h3>7. Troubleshooting & Support</h3>
+        <h3>5. Troubleshooting & Support</h3>
         <p>If you face issues such as login problems, missing data, or unexpected errors:</p>
         <ul class="help-list">
             <li>Check your internet connection</li>
