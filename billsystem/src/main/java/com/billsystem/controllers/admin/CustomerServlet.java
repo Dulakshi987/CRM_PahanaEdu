@@ -15,6 +15,8 @@ import java.io.IOException;
 
 @WebServlet("/admin/CustomerServlet")
 public class CustomerServlet extends HttpServlet {
+
+
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         Customer customer = new Customer();
@@ -28,9 +30,14 @@ public class CustomerServlet extends HttpServlet {
         customer.setEmail(request.getParameter("email"));
 
         CustomerService service = new CustomerService();
-        service.addCustomer(customer);
 
-        response.sendRedirect("addCustomer.jsp?success=true");
+        boolean success = service.addCustomer(customer);
+
+        if (success) {
+            response.sendRedirect("addCustomer.jsp?success=true");
+        } else {
+            response.sendRedirect("addCustomer.jsp?error=duplicate");
+        }
     }
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         String action = request.getParameter("action");

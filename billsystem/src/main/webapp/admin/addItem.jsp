@@ -101,7 +101,15 @@
     </div>
     <% } %>
 
-    <form action="ItemServlet" method="post" class="styled-form">
+        <% String error = request.getParameter("error"); %>
+        <% if ("duplicate".equals(error)) { %>
+        <div class="alert alert-danger">
+            Item Code already exists! Please use a different code.
+        </div>
+        <% } %>
+
+
+        <form action="ItemServlet" method="post" class="styled-form">
         <div class="form-group">
             <label for="itemCode">Item Code</label>
             <input type="text" id="itemCode" name="itemCode" required>

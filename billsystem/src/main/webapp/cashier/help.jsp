@@ -52,7 +52,7 @@
         font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
         color: #333;
         line-height: 1.6;
-        margin-right: 180px;
+        margin-right: 120px;
 
     }
     .help-container h2 {

@@ -9,8 +9,14 @@ import java.util.List;
 public class ItemService {
     private final ItemDao itemDao = DaoFactory.createItemDao();
 
-    public void addItem(Item item) {
-        itemDao.addItem(item);
+    // Check and add item
+    public boolean addItem(Item item) {
+        if (itemDao.isItemCodeExist(item.getItemCode())) {
+            return false; // item code exists → do not add
+        } else {
+            itemDao.addItem(item);
+            return true; // successfully added
+        }
     }
 
     public List<Item> getAllItems() {

@@ -32,6 +32,20 @@ public class ItemDao {
         }
     }
 
+    // Check if item code already exists
+    public boolean isItemCodeExist(String itemCode) {
+        String sql = "SELECT item_code FROM Item WHERE item_code = ?";
+        try (Connection conn = DBConnection.getConnection();
+             PreparedStatement ps = conn.prepareStatement(sql)) {
+            ps.setString(1, itemCode);
+            ResultSet rs = ps.executeQuery();
+            return rs.next(); // true if item code exists
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return false;
+    }
+
     public List<Item> getAllItems() {
         List<Item> itemList = new ArrayList<>();
         String sql = "SELECT * FROM Item";

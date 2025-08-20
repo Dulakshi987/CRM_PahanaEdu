@@ -108,4 +108,9 @@ public class CustomerDaoTest {
         Customer deleted = customerDao.getCustomerById(testCustomerId);
         assertNull(deleted);
     }
+    @Test
+    @Order(6)
+    public void testAccountNumberDoesNotExist() {
+        assertFalse(customerDao.accountNumberExists("NONEXISTENT"), "Random account number should not exist");
+    }
 }

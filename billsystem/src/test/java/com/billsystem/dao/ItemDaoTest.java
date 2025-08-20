@@ -102,4 +102,10 @@ public class ItemDaoTest {
         Item deleted = itemDao.getItemById(testItemId);
         assertNull(deleted);
     }
+
+    @Test
+    @Order(6)
+    public void testItemCodeDoesNotExist() {
+        assertFalse(itemDao.isItemCodeExist("NONEXISTENT"), "Random item code should not exist");
+    }
 }

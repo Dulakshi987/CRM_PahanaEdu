@@ -2,6 +2,29 @@
 <%@ page session="true" %>
 
 <%
+    HttpSession sessionObj = request.getSession(false);
+
+    // Step 1: Check if logged in
+    if (sessionObj == null || sessionObj.getAttribute("loggedUser") == null) {
+        response.sendRedirect(request.getContextPath() + "/login.jsp");
+        return;
+    }
+
+    // Step 2: Allow only role = 1 (Cashier)
+    Integer role = (Integer) sessionObj.getAttribute("role");
+    if (role == null || role != 1) { // 1 = cashier
+        sessionObj.invalidate(); // destroy session
+        response.sendRedirect(request.getContextPath() + "/login.jsp");
+        return;
+    }
+
+    // Step 3: Prevent browser cache
+    response.setHeader("Cache-Control", "no-cache, no-store, must-revalidate");
+    response.setHeader("Pragma", "no-cache");
+    response.setDateHeader("Expires", 0);
+%>
+
+<%
     ItemService itemService = new ItemService();
     CustomerService customerService = new CustomerService();
 
@@ -100,6 +123,7 @@
     <div class="form-section">
         <form action="${pageContext.request.contextPath}/cashier/AddBillItemServlet" method="post" class="row g-3">
             <div class="col-md-6">
+                <label for="itemId" class="form-label">Select Item</label>
                 <select name="itemId" id="itemId" class="form-select" required>
                     <option value="" disabled selected>Select Item</option>
                     <% for (Item i : items) { %>

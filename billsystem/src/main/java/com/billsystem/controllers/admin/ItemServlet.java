@@ -40,10 +40,12 @@ public class ItemServlet extends HttpServlet {
         item.setStatus(status);
 
         ItemService service = new ItemService();
-        service.addItem(item);
 
-// Use context path + absolute path starting from root of webapp
-        response.sendRedirect(request.getContextPath() + "/admin/addItem.jsp?success=true");
+        if (service.addItem(item)) {
+            response.sendRedirect(request.getContextPath() + "/admin/addItem.jsp?success=true");
+        } else {
+            response.sendRedirect(request.getContextPath() + "/admin/addItem.jsp?error=duplicate");
+        }
     }
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)

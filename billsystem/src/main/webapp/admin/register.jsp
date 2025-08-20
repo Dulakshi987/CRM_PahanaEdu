@@ -109,7 +109,6 @@
                 default: %>
             An error occurred during registration.
             <% } %>
-
         </div>
         <% } %>
 

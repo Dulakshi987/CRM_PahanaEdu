@@ -113,14 +113,18 @@
 
     <div class="form-container">
         <%-- Success message --%>
-        <% String success = request.getParameter("success"); %>
-        <% if ("true".equals(success)) { %>
-        <div class="alert alert-success">
-            Customer Added Successfully.
-        </div>
-        <% } %>
+            <% String error = request.getParameter("error"); %>
+            <% if ("duplicate".equals(error)) { %>
+            <div class="alert alert-danger">Account number is already used!</div>
+            <% } %>
 
-        <form action="${pageContext.request.contextPath}/admin/CustomerServlet" method="post" class="styled-form">
+            <% String success = request.getParameter("success"); %>
+            <% if ("true".equals(success)) { %>
+            <div class="alert alert-success">Customer added successfully!</div>
+            <% } %>
+
+
+            <form action="${pageContext.request.contextPath}/admin/CustomerServlet" method="post" class="styled-form">
             <div class="form-group">
                 <label>First Name:</label>
                 <input type="text" name="firstName" required>

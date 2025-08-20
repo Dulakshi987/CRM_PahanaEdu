@@ -10,10 +10,15 @@ public class CustomerService {
 
     // DAO is created via factory, not directly
     private final CustomerDao customerDao = DaoFactory.createCustomerDao();
-
-    public void addCustomer(Customer customer) {
+    public boolean addCustomer(Customer customer) {
+        // check duplicate first
+        if (customerDao.accountNumberExists(customer.getAccountNumber())) {
+            return false; // already exists
+        }
         customerDao.addCustomer(customer);
+        return true;
     }
+
 
     public List<Customer> getAllCustomers() {
         return customerDao.getAllCustomers();
