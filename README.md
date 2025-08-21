@@ -37,7 +37,7 @@ To run this locally you need below requirments
 - After that go to the IDE and Run the project by clicking the TomCat selection.
 
 ### 2.3 Dependencies
-If any case you get a error on Dependencies on this project then please copy below Dependencies to your project porm.xml file and reload the maven
+If any case you get a error on Dependencies on this project then please copy below Dependencies to your project pom.xml file and reload the maven
 
 ```xml
 <dependencies>
