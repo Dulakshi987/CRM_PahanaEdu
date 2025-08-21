@@ -35,6 +35,7 @@ To run this locally you need below requirments
 - Then press Apply and ok.
 - Open the Xampp and run the database and create a database table named "bill_system" and insert the database tables that locate on resources folder on project directory.
 - After that go to the IDE and Run the project by clicking the TomCat selection.
+- Use the mailtrap credintials for Utils->EmailUtil java class,Then view bill preview via email.
 
 ### 2.3 Dependencies
 If any case you get a error on Dependencies on this project then please copy below Dependencies to your project pom.xml file and reload the maven
