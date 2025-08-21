@@ -1,42 +1,42 @@
 # CRM_PahanaEdu
 Book Shop Web System that cashier can generate customer's bills from the system and admin can manage the users,item,customers and view generated bill and the system.
 
-01. Features
-1.1 Admin Features
-Admin Login(Username:Admin / Password:Admin12345)
-Register and manage Users(Admin or Cashier)
-Add and manage Customers(Prevent duplicate Account Number for different customers)
-Add and manage Items(Prevent duplicate Item Code for different items)
-View generated bills
-Help Section for new Admin
-HttpSession and usertype validation
+## 1. Features
+### 1.1 Admin Features
+- Admin Login(Username:Admin / Password:Admin12345)
+- Register and manage Users(Admin or Cashier)
+- Add and manage Customers(Prevent duplicate Account Number for different customers)
+- Add and manage Items(Prevent duplicate Item Code for different items)
+- View generated bills
+- Help Section for new Admin
+- HttpSession and usertype validation
 
-1.2 Cashier Features
-Cashier Login
-Generate Bill with customer accounts and bill items
-View generated Bill
-Help section for new cashier
-HttpSession and usertype validation
+### 1.2 Cashier Features
+- Cashier Login
+- Generate Bill with customer accounts and bill items
+- View generated Bill
+- Help section for new cashier
+- HttpSession and usertype validation
 
-02. Installation
+## 2. Installation
 To run this locally you need below requirments
 
-2.1 Softwares
-Download Apache Tomcat and install it on your computer
-Download Xampp for database connection and install it to your computer
-Download Intelijj Idea Ultimate as the IDE for run this program.
+### 2.1 Software Requirements
+- Download Apache Tomcat and install it on your computer
+- Download Xampp for database connection and install it to your computer
+- Download Intelijj Idea Ultimate as the IDE for run this program.
 
-2.2 Run the project
-Download this project and open in IDE as mern project.
-Then click the "Current File" on the top of the navbar in the IDE and select Edit Configurations
-Press the "+" icon and select the Tomcat Local on the options
-Add suitable name on the name filed and change the port to 8086 or any other number.
-After that don't click ok or apply buttons, then go to the "Deployment" tab and there press "+" mark and select "Artifact" then select "Exploade" option(like as view: /billsystem_war_exploded)
-Then press Apply and ok.
-Open the Xampp and run the database and create a database table named "bill_system" and insert the database tables that locate on resources folder on project directory.
-After that go to the IDE and Run the project by clicking the TomCat selection.
+### 2.2 Run the project
+- Download this project and open in IDE as mern project.
+- Then click the "Current File" on the top of the navbar in the IDE and select Edit Configurations
+- Press the "+" icon and select the Tomcat Local on the options
+- Add suitable name on the name filed and change the port to 8086 or any other number.
+- After that don't click ok or apply buttons, then go to the "Deployment" tab and there press "+" mark and select "Artifact" then select "Exploade" option(like as view: /billsystem_war_exploded)
+- Then press Apply and ok.
+- Open the Xampp and run the database and create a database table named "bill_system" and insert the database tables that locate on resources folder on project directory.
+- After that go to the IDE and Run the project by clicking the TomCat selection.
 
-2.3 Dependencies
+### 2.3 Dependencies
 If any case you get a error on Dependencies on this project then please copy below Dependencies to your project porm.xml file and reload the maven
 
 ```<dependencies>
